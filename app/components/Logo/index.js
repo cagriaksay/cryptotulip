@@ -5,19 +5,33 @@
 */
 
 import React from 'react';
-// import styled from 'styled-components';
+import styled from 'styled-components';
+
+const Pipe = styled.h3`
+  font-family: 'Courgette', cursive;
+  text-align: center;
+  font-size: 20px;
+  margin-top: 0px;
+  color: #95A5A6;
+`;
+
+const Frame = styled.div`
+  background: white;
+  border: 1px solid gray;
+  margin-top:50px;
+`;
 
 class Logo extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
     return (
-      <div>
+      <Frame className="text-center">
         <svg
           id="svg"
           xmlns="http://www.w3.org/2000/svg"
           className="logo"
-          viewBox="-256 -256 512 512"
-          width="300"
-          height="300"
+          viewBox="-200 -200 300 400"
+          width="200"
+          height="200"
           preserveAspectRatio="xMidYMid meet"
         >
           <g id="main">
@@ -52,7 +66,10 @@ class Logo extends React.PureComponent { // eslint-disable-line react/prefer-sta
           </g>
 
         </svg>
-      </div>
+        <Pipe>
+          ce n'est pas une tulipe
+        </Pipe>
+      </Frame>
     );
   }
 }
