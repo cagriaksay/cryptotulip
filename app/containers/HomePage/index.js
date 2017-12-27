@@ -45,6 +45,7 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
           <title>CryptoTulip</title>
           <meta name="description" content="first digital artist on the blockchain." />
         </Helmet>
+
         <Row>
           <Col md={3}>
             <Logo />
