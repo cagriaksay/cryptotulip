@@ -21,7 +21,6 @@ import 'flat-ui/css/flat-ui.css';
 
 import 'css/tulip.css';
 
-
 // Import root app
 import App from 'containers/App';
 
