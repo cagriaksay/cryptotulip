@@ -32,7 +32,6 @@ import 'file-loader?name=[name].[ext]!./.htaccess'; // eslint-disable-line impor
 
 import configureStore from './configureStore';
 
-
 // Import CSS reset and Global Styles
 import './global-styles';
 

@@ -64,7 +64,7 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
                 First month only: claim generation zero tulips
               </Header>
               <List>
-                <li>Create generation-zero <b>🌷</b> with your own designs</li>
+                <li>Create generation-zero <b>🌷</b> with your own design</li>
               </List>
 
               <Vert />
