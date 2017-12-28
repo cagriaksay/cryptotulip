@@ -67,7 +67,7 @@ class Logo extends React.PureComponent { // eslint-disable-line react/prefer-sta
 
         </svg>
         <Pipe>
-          ce n'est pas une tulipe
+          ceci n&apos;est pas une tulipe
         </Pipe>
       </Frame>
     );

@@ -50,6 +50,19 @@ ul {
   background: #000;
 }
 
+.rc-slider-track {
+  background: #422531;
+}
+
+.rc-slider-rail {
+  background: #ff4d1c;
+}
+
+.rc-slider-handle {
+  background: #000;
+  border: #fff;
+}
+
 #tulip {
   border: 1px solid #aaa;
   background: white;

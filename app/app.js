@@ -17,7 +17,8 @@ import FontFaceObserver from 'fontfaceobserver';
 import createHistory from 'history/createBrowserHistory';
 import 'sanitize.css/sanitize.css';
 import 'bootstrap/dist/css/bootstrap.css';
-import 'flat-ui/css/flat-ui.css';
+import 'designmodo-flat-ui/dist/css/flat-ui.css';
+import 'rc-slider/assets/index.css';
 
 import 'css/tulip.css';
 
