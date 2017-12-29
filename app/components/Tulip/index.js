@@ -79,7 +79,8 @@ export const genesToString = (genes) => {
 
 
 const TulipFrame = styled.div`
-  border: 1px solid #000;
+  background: #fff;
+  border: 1px solid #95A5A6;
   width: ${(props) => props.width}px;
   height: ${(props) => props.width}px;
 `;

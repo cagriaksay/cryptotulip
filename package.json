@@ -239,6 +239,7 @@
     "react-redux": "5.0.5",
     "react-router-dom": "4.1.1",
     "react-router-redux": "5.0.0-alpha.6",
+    "react-web3": "^0.4.4",
     "redux": "3.6.0",
     "redux-immutable": "4.0.0",
     "redux-saga": "0.15.3",
@@ -247,7 +248,9 @@
     "styled-components": "2.0.0",
     "svg.path.js": "git+https://git@github.com/otm/svg.path.js.git#6981166831ac663cf5e43d492b3c0266365ca829",
     "svgjs": "^2.6.2",
+    "underscore": "^1.8.3",
     "warning": "3.0.0",
+    "web3": "^1.0.0-beta.27",
     "whatwg-fetch": "2.0.3"
   },
   "devDependencies": {

@@ -58,7 +58,7 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
               TulipArtist &mdash; digital art on the blockchain.
               </Header>
               <List>
-                <li>🎨 TulipArtist is a contract that paints minimalist abstracts called <b>Tulips</b>. </li>
+                <li>🎨 TulipArtist is a smart contract that paints minimalist abstracts called <b>tulips</b>. </li>
                 <li>🌷 <b>Tulips</b> are collectable and genetically breedable.</li>
               </List>
             </Row>
@@ -68,9 +68,9 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
                 Creative process:
               </Header>
               <List>
-                <li><Num>1</Num> Commission a 🌷 from the TulipArtist contract on the Ethereum blockchain!</li>
-                <li><Num>2</Num> Provide one of your own 🌷 as foundation, another 🌷 for inspiration. </li>
-                <li><Num>3</Num> Their genes will combine  🌼  ➕  🌸  🔜  🌺 and your unique 🌷 will be revealed.</li>
+                <li><Num>1</Num> Commission a tulip from the TulipArtist.</li>
+                <li><Num>2</Num> Provide one of your own as foundation, another tulip for inspiration. </li>
+                <li><Num>3</Num> TulipArtist will combine their genes and reveal your unique tulip.</li>
               </List>
             </Row>
 
@@ -78,7 +78,7 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
               <Header>
                 First month only: claim generation zero tulips
               </Header>
-              For a limited time, you can claim a single Tulip on the blockchain.
+              For a limited time, you can claim a single tulip of your own design.
               <br />
               <br />
               <Experiment />
@@ -95,10 +95,10 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
                   <li><b>Why is this  &ldquo;art&rdquo;  ugly?</b><br />
                   TulipArtist can make a great number of unique paintings. We&apos;re optimistic one or two will look great!</li>
                   <li><b>How do I own a tulip artwork?</b><br />
-                  Tulips are ERC721 tokens. Your ownership is recorded on the Ethereum blockchain.
+                  Tulips are ERC721 tokens. Your ownership is recorded on Ethereum.
                   All the information about your tulip is stored on the blockchain.</li>
                   <li><b>How do I buy a tulip?</b><br />
-                  During the first month, you can create a tulip and decide on its genes.
+                  During the first month, you can design a tulip and claim it for yourself.
                   After that, all new tulips must be painted by TulipArtist.
                   You can also buy tulips on the marketplace soon.
                   </li>

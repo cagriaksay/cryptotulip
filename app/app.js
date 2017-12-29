@@ -15,6 +15,8 @@ import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'react-router-redux';
 import FontFaceObserver from 'fontfaceobserver';
 import createHistory from 'history/createBrowserHistory';
+import { Web3Provider } from 'react-web3';
+
 import 'sanitize.css/sanitize.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'designmodo-flat-ui/dist/css/flat-ui.css';
@@ -55,11 +57,13 @@ const MOUNT_NODE = document.getElementById('app');
 
 const render = () => {
   ReactDOM.render(
-    <Provider store={store}>
-      <ConnectedRouter history={history}>
-        <App />
-      </ConnectedRouter>
-    </Provider>,
+    <Web3Provider passive>
+      <Provider store={store}>
+        <ConnectedRouter history={history}>
+          <App />
+        </ConnectedRouter>
+      </Provider>
+    </Web3Provider>,
     MOUNT_NODE
   );
 };
