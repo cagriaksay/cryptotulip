@@ -15,7 +15,8 @@ import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'react-router-redux';
 import FontFaceObserver from 'fontfaceobserver';
 import createHistory from 'history/createBrowserHistory';
-import { Web3Provider } from 'react-web3';
+import Web3 from 'web3';
+import { EthereumProvider } from 'react-ethereum-provider';
 
 import 'sanitize.css/sanitize.css';
 import 'bootstrap/dist/css/bootstrap.css';
@@ -57,13 +58,13 @@ const MOUNT_NODE = document.getElementById('app');
 
 const render = () => {
   ReactDOM.render(
-    <Web3Provider passive>
-      <Provider store={store}>
+    <Provider store={store}>
+      <EthereumProvider web3={Web3}>
         <ConnectedRouter history={history}>
           <App />
         </ConnectedRouter>
-      </Provider>
-    </Web3Provider>,
+      </EthereumProvider>
+    </Provider>,
     MOUNT_NODE
   );
 };

@@ -5,11 +5,13 @@
 */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import Tulip, { stringToGenes, genesToString, GENOME_LENGTH } from 'components/Tulip';
 import styled from 'styled-components';
 import { Row, Col } from 'react-bootstrap';
 import Slider from 'rc-slider';
 import { sample } from 'underscore';
+import { withEthereum } from 'react-ethereum-provider';
 
 const Title = styled.div`
   font-family: 'Courgette';
@@ -112,8 +114,14 @@ class Experiment extends React.Component {
     });
   }
 
+  claimTulip() {
+    // const { ethereum } = this.props;
+    // ethereum
+  }
+
   render() {
     const { genome, foundation, inspiration } = this.state;
+    const { ethereum } = this.props;
 
     return (
       <div>
@@ -143,9 +151,14 @@ class Experiment extends React.Component {
                 <Tulip genome={genome} width={562} />
               </Col>
               <Col md={12}>
-                <button className="btn btn-block btn-lg btn-inverse mt-3" onClick={() => this.paintNewTulip()}>
-                  Claim this tulip
-                </button>
+                {ethereum && ethereum.connected ?
+                  (<button className="btn btn-block btn-lg btn-inverse mt-3" onClick={() => this.claimTulip()}>
+                    Claim this tulip
+                  </button>) : (
+                    <div>
+                      Please connect to MetaMask to claim this tulip.
+                    </div>
+                )}
               </Col>
             </Row>
           </Col>
@@ -169,7 +182,7 @@ class Experiment extends React.Component {
 }
 
 Experiment.propTypes = {
-
+  ethereum: PropTypes.object.isRequired,
 };
 
-export default Experiment;
+export default withEthereum()(Experiment);
