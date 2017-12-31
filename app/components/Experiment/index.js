@@ -12,6 +12,7 @@ import { Row, Col } from 'react-bootstrap';
 import Slider from 'rc-slider';
 import { sample } from 'underscore';
 import { withEthereum } from 'react-ethereum-provider';
+import { ABI } from './abi';
 
 const Title = styled.div`
   font-family: 'Courgette';
@@ -39,6 +40,7 @@ const Plus = styled.span`
 
 const PaintButton = styled.button`
   cursor: pointer;
+  font-family: 'Courgette';
 `;
 
 class Experiment extends React.Component {
@@ -53,6 +55,7 @@ class Experiment extends React.Component {
     ];
 
     this.state = {
+      account: null,
       genome: '2c756b5f8893b110005470a8c0a7c0799b8c714d542c21618f003fa900489e00', // '0'.repeat(GENOME_LENGTH),
       foundation: sample(population),
       inspiration: sample(population),
@@ -65,6 +68,22 @@ class Experiment extends React.Component {
     //   const provider = new Web3.providers.HttpProvider('http://localhost:8545');
     //   this.web3 = new Web3(provider);
     // }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { ethereum } = nextProps;
+    const { account } = this.state;
+    const newAccount = ethereum.accounts.value[0];
+
+    if (newAccount !== account) {
+      const web3 = ethereum.connection.web3;
+
+      // eslint-disable-next-line
+      this.tulipArtist = new web3.eth.contract(ABI)
+        .at('0x345ca3e014aaf5dca488057592ee47305d9b3e10');
+
+      this.setState({ account: newAccount });
+    }
   }
 
   onSliderChanged(index, value) {
@@ -115,12 +134,29 @@ class Experiment extends React.Component {
   }
 
   claimTulip() {
-    // const { ethereum } = this.props;
-    // ethereum
+    const { account, genome } = this.state;
+
+    const receipt = this.tulipArtist.originalArtwork.sendTransaction(
+      genome, account,
+      { from: account, value: 10000000000000, gas: 25000000000 },
+      (err, res) => {
+        alert(res);
+      });
+
+    //   contract.functionName.sendTransaction(parameter_1,parameter_2,parameter_n,{
+    //     from:web3.eth.accounts[0],
+    //     gas:4000000},function (error, result){ //get callback from function which is your transaction key
+    //         if(!error){
+    //             console.log(result);
+    //         } else{
+    //             console.log(error);
+    //         }
+    // });
+    return receipt;
   }
 
   render() {
-    const { genome, foundation, inspiration } = this.state;
+    const { genome, foundation, inspiration, account } = this.state;
     const { ethereum } = this.props;
 
     return (
@@ -159,6 +195,7 @@ class Experiment extends React.Component {
                       Please connect to MetaMask to claim this tulip.
                     </div>
                 )}
+                { account }
               </Col>
             </Row>
           </Col>

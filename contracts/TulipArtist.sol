@@ -66,7 +66,7 @@ contract TulipArtist is Destructible, Pausable, BasicNFT {
 
     // Owner methods
 
-    uint256 internal constant ORIGINAL_ARTWORK_LIMIT = 10000;
+    uint256 internal constant ORIGINAL_ARTWORK_LIMIT = 50000;
     uint256 internal originalCount = 0;
 
     // Let's the caller create an original artwork with given genes.
