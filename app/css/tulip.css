@@ -94,4 +94,18 @@ ul {
   font-size: 50px;
 }
 
+.parent-tulip {
+  cursor: pointer;
+}
 
+.inline {
+  display: inline !important;
+}
+
+.navbar-inverse {
+  font-family: 'Courgette';
+}
+
+.navbar-brand {
+  margin-left: -40px !important;
+}

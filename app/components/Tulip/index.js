@@ -62,9 +62,10 @@ const toRadians = (angle) => (angle * (Math.PI / 180));
 
 export const stringToGenes = (genestring) => {
   const genestrings = genestring.match(/.{2}/g);
+  const offset = genestrings[0] === '0x' ? 1 : 0;
   const genes = new Uint8Array(GENOME_LENGTH);
   for (let i = 0; i < GENOME_LENGTH; i += 1) {
-    genes[i] = parseInt(genestrings[i], 16);
+    genes[i] = parseInt(genestrings[i + offset], 16);
   }
   return genes;
 };

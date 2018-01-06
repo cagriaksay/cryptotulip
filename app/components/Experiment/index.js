@@ -11,8 +11,8 @@ import styled from 'styled-components';
 import { Row, Col } from 'react-bootstrap';
 import Slider from 'rc-slider';
 import { sample } from 'underscore';
-import { withEthereum } from 'react-ethereum-provider';
-import { ABI } from './abi';
+// import { withEthereum } from 'react-ethereum-provider';
+// import { withTulipArtist } from '../WithTulipArtist';
 
 const Title = styled.div`
   font-family: 'Courgette';
@@ -38,9 +38,7 @@ const Plus = styled.span`
   vertical-align: sub;
 `;
 
-const PaintButton = styled.button`
-  cursor: pointer;
-  font-family: 'Courgette';
+const ExperimentFrame = styled.div`
 `;
 
 class Experiment extends React.Component {
@@ -70,21 +68,42 @@ class Experiment extends React.Component {
     // }
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { ethereum } = nextProps;
-    const { account } = this.state;
-    const newAccount = ethereum.accounts.value[0];
+  // componentWillReceiveProps(nextProps) {
+  //   const { ethereum } = nextProps;
+  //   const { account } = this.state;
+  //   const newAccount = ethereum.accounts.value[0];
 
-    if (newAccount !== account) {
-      const web3 = ethereum.connection.web3;
+  //   if (newAccount !== account) {
+  //     const web3 = ethereum.connection.web3;
 
-      // eslint-disable-next-line
-      this.tulipArtist = new web3.eth.contract(ABI)
-        .at('0x345ca3e014aaf5dca488057592ee47305d9b3e10');
+  //     // eslint-disable-next-line
+  //     this.tulipArtist = new web3.eth.Contract(ABI,
+  //       '0xecfcab0a285d3380e488a39b4bb21e777f8a4eac', {
+  //         from: newAccount,
+  //         gasPrice: '25000000000',
+  //       });
 
-      this.setState({ account: newAccount });
-    }
-  }
+  //     this.tulips = {};
+
+  //     this.tulipArtist.methods.getAllTokens(newAccount).call(
+  //       (err, res) => {
+  //         const tokens = res;
+  //         let tokensToGet = tokens.length;
+  //         map(tokens, (t) => {
+  //           this.tulipArtist.methods.getTulip(t).call(
+  //             (err2, res2) => {
+  //               this.tulips[t] = omit(res2, '0', '1', '2', '3', '4');
+  //               tokensToGet -= 1;
+  //               if (tokensToGet === 0) {
+  //                 this.setState({ tulips: this.tulips });
+  //               }
+  //             });
+  //         });
+  //       });
+
+  //     this.setState({ account: newAccount });
+  //   }
+  // }
 
   onSliderChanged(index, value) {
     const { genome } = this.state;
@@ -112,8 +131,11 @@ class Experiment extends React.Component {
     const genes = new Uint8Array(GENOME_LENGTH);
     for (let i = 0; i < GENOME_LENGTH; i += 1) {
       const rand = Math.random();
-      if (rand < 0.9) {
+      if (rand < 0.95) {
         genes[i] = rand < 0.7 ? foundation[i] : inspiration[i];
+        if (rand < 0.1) {
+          genes[i] += (Math.random() * 16) - 8;
+        }
       } else {
         genes[i] = Math.random() * 256;
       }
@@ -135,12 +157,22 @@ class Experiment extends React.Component {
 
   claimTulip() {
     const { account, genome } = this.state;
+    const { ethereum: { tulipArtist } } = this.props;
+    const web3 = this.props.ethereum.connection.web3;
 
-    const receipt = this.tulipArtist.originalArtwork.sendTransaction(
-      genome, account,
-      { from: account, value: 10000000000000, gas: 25000000000 },
+
+    const receipt = tulipArtist.methods.originalArtwork(
+      `0x${genome}`, account).send({
+        value: web3.utils.toWei('10', 'finney'),
+        from: account,
+      },
       (err, res) => {
+        // eslint-disable-next-line
         alert(res);
+      }).on('receipt', (receipt1) => {
+        // receipt example
+        // eslint-disable-next-line
+        console.log(receipt1);
       });
 
     //   contract.functionName.sendTransaction(parameter_1,parameter_2,parameter_n,{
@@ -160,27 +192,27 @@ class Experiment extends React.Component {
     const { ethereum } = this.props;
 
     return (
-      <div>
+      <ExperimentFrame>
         <Row>
           <Col md={9}>
             <Row>
               <Col md={5} onClick={() => this.onChangeFoundation()}>
                 <Title>Foundation</Title>
-                <Tulip genome={foundation} width={200} />
+                <Tulip genome={foundation} width={200} className="parent-tulip" />
               </Col>
               <Col md={2}>
                 <Plus className="fui-plus" />
               </Col>
               <Col md={5} onClick={() => this.onChangeInspiration()}>
                 <Title className="text-right">Inspiration</Title>
-                <Tulip genome={inspiration} width={200} className="float-right" />
+                <Tulip genome={inspiration} width={200} className="float-right parent-tulip" />
               </Col>
               <Col md={12}>
-                <PaintButton className="btn btn-block btn-lg btn-inverse mt-3" onClick={() => this.paintNewTulip()}>
+                <button className="btn btn-block btn-lg btn-inverse mt-3" onClick={() => this.paintNewTulip()}>
                   <span className="fui-triangle-down mr-5" />
-                  Paint New Tulip
+                  Paint new tulip
                   <span className="fui-triangle-down ml-5" />
-                </PaintButton>
+                </button>
               </Col>
               <Col md={12}>
                 <br />
@@ -213,7 +245,7 @@ class Experiment extends React.Component {
             </Controls>
           </Col>
         </Row>
-      </div>
+      </ExperimentFrame>
     );
   }
 }
@@ -222,4 +254,4 @@ Experiment.propTypes = {
   ethereum: PropTypes.object.isRequired,
 };
 
-export default withEthereum()(Experiment);
+export default Experiment;

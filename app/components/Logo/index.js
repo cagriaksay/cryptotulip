@@ -11,7 +11,7 @@ import styled from 'styled-components';
 const Pipe = styled.h3`
   font-family: 'Courgette', cursive;
   text-align: center;
-  font-size: 20px;
+  font-size: 14px;
   margin-top: 0px;
   color: #95A5A6;
 `;
@@ -19,11 +19,7 @@ const Pipe = styled.h3`
 const Frame = styled.div`
   background: white;
   border: 1px solid gray;
-  margin-top:50px;
-`;
-
-const Status = styled.div`
-  margin-top:20px;
+  margin-top: 23px;
 `;
 
 class Logo extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -36,8 +32,8 @@ class Logo extends React.PureComponent { // eslint-disable-line react/prefer-sta
             xmlns="http://www.w3.org/2000/svg"
             className="logo"
             viewBox="-200 -200 300 400"
-            width="200"
-            height="200"
+            width="50"
+            height="50"
             preserveAspectRatio="xMidYMid meet"
           >
             <g id="main">
@@ -76,8 +72,6 @@ class Logo extends React.PureComponent { // eslint-disable-line react/prefer-sta
             ceci n&apos;est pas une tulipe
           </Pipe>
         </Frame>
-        <Status>
-        </Status>
       </div>
     );
   }

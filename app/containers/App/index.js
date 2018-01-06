@@ -16,12 +16,16 @@ import { Switch, Route } from 'react-router-dom';
 
 import HomePage from 'containers/HomePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
+import MyCollection from '../MyCollection/index';
+import TulipPage from '../TulipPage/index';
 
 export default function App() {
   return (
     <div>
       <Switch>
         <Route exact path="/" component={HomePage} />
+        <Route exact path="/collection/:id" component={MyCollection} />
+        <Route exact path="/tulip/:id" component={TulipPage} />
         <Route component={NotFoundPage} />
       </Switch>
     </div>
