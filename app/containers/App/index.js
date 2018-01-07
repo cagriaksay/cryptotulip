@@ -19,14 +19,16 @@ import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import MyCollection from '../MyCollection/index';
 import TulipPage from '../TulipPage/index';
 import Commission from '../Commission/index';
+import Browse from '../Browse/index';
 
 export default function App() {
   return (
     <div>
       <Switch>
         <Route exact path="/" component={HomePage} />
-        <Route exact path="/collection/:id" component={MyCollection} />
+        <Route exact path="/collection/:id?" component={MyCollection} />
         <Route exact path="/tulip/:id" component={TulipPage} />
+        <Route exact path="/browse/:page?" component={Browse} />
         <Route exact path="/commission" component={Commission} />
         <Route component={NotFoundPage} />
       </Switch>

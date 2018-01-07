@@ -163,7 +163,7 @@ class Experiment extends React.Component {
 
     const receipt = tulipArtist.methods.originalArtwork(
       `0x${genome}`, account).send({
-        value: web3.utils.toWei('10', 'finney'),
+        value: web3.utils.toWei('1', 'finney'),
         from: account,
       },
       (err, res) => {
@@ -175,15 +175,6 @@ class Experiment extends React.Component {
         console.log(receipt1);
       });
 
-    //   contract.functionName.sendTransaction(parameter_1,parameter_2,parameter_n,{
-    //     from:web3.eth.accounts[0],
-    //     gas:4000000},function (error, result){ //get callback from function which is your transaction key
-    //         if(!error){
-    //             console.log(result);
-    //         } else{
-    //             console.log(error);
-    //         }
-    // });
     return receipt;
   }
 
@@ -210,7 +201,7 @@ class Experiment extends React.Component {
               <Col md={12} className="text-center">
                 <button className="btn btn-primary mt-3" onClick={() => this.paintNewTulip()}>
                   <span className="fui-triangle-down mr-3" />
-                  Paint new tulip
+                  Paint new sample
                   <span className="fui-triangle-down ml-3" />
                 </button>
               </Col>

@@ -35,7 +35,7 @@ export function withTulipArtist() {
         if (newAccount !== account) {
           // eslint-disable-next-line
           const tulipArtist = new web3.eth.Contract(ABI,
-            '0x8acee021a27779d8e98b9650722676b850b25e11', {
+            '0x4e71920b7330515faf5ea0c690f1ad06a85fb60c', {
               from: newAccount,
               gasPrice: '25000000000',
             });

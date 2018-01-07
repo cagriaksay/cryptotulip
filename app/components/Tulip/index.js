@@ -80,6 +80,7 @@ export const genesToString = (genes) => {
 
 
 const TulipFrame = styled.div`
+  margin: auto;
   overflow: hidden;
   border-radius: 50%;
   background: #fff;
@@ -160,13 +161,20 @@ class Tulip extends React.Component {
     this.drawShape(draw, 'front', genes, cur);
   }
 
-
   render() {
-    const { width } = this.props;
+    const { width, genome, onReveal, id } = this.props;
+
+    const reveal = genome === '0x0000000000000000000000000000000000000000000000000000000000000000';
 
     return (
       <TulipFrame width={width} className={this.props.className}>
-        <div ref={(ref) => this.drawTulip(ref)}></div>
+        {reveal ? (
+          <button className="btn btn-block btn-secondary" onClick={() => onReveal(id)}>
+            Reveal
+          </button>
+        ) : (
+          <div ref={(ref) => this.drawTulip(ref)}></div>
+        )}
       </TulipFrame>
     );
   }
@@ -176,6 +184,8 @@ Tulip.propTypes = {
   width: PropTypes.number.isRequired,
   genome: PropTypes.string.isRequired,
   className: PropTypes.string,
+  onReveal: PropTypes.func,
+  id: PropTypes.string,
 };
 
 export default Tulip;

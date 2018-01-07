@@ -33,6 +33,7 @@ class Collection extends React.Component { // eslint-disable-line react/prefer-s
           <TulipBox key={i}>
             <a href={`/tulip/${t.id}`} >
               <Tulip genome={t.genome} width={250} />
+              <span>{t.id}</span>
             </a>
           </TulipBox>
         ))}

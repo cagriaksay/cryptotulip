@@ -46,10 +46,34 @@ class Commission extends React.Component { // eslint-disable-line react/prefer-s
       });
   }
 
+  handleCommission() {
+    const { foundation, inspiration } = this.state;
+    const { ethereum: { tulipArtist, account, connection: { web3 } } } = this.props;
+
+    if (!foundation.genome || !inspiration.genome) {
+      return;
+    }
+
+    tulipArtist.methods.commissionArt(
+      foundation.id, inspiration.id).send({
+        gasLimit: 30000,
+        value: web3.utils.toWei('1', 'finney'),
+        from: account,
+      },
+      (err, res) => {
+        // eslint-disable-next-line
+        alert(res);
+      }).on('receipt', (receipt1) => {
+        // receipt example
+        // eslint-disable-next-line
+        console.log(receipt1);
+      });
+  }
+
 
   render() {
     const { foundation, inspiration } = this.state;
-    const { ethereum: { account, tulipIds } } = this.props;
+    const { ethereum, ethereum: { account, tulipIds } } = this.props;
 
     return (
       <div>
@@ -60,12 +84,11 @@ class Commission extends React.Component { // eslint-disable-line react/prefer-s
               <h4>Foundation</h4>
               {tulipIds ? (
                 <FormGroup>
-                  <FormControl componentClass="select" placeholder="select" onChange={(e) => this.handleFoundation(e)} className="form-control select select-primary select-block mbl">
-                    <optgroup label="your tulips">
-                      {tulipIds.map((id) => (
-                        <option value={id}>Tulip #{id} </option>
-                      ))}
-                    </optgroup>
+                  <FormControl componentClass="select" defaultValue={0} placeholder="select" onChange={(e) => this.handleFoundation(e)} className="form-control select select-primary select-block mbl">
+                    <option disabled value={0}>Select one of your own tulips</option>
+                    {tulipIds.map((id) => (
+                      <option key={id} value={id}>Tulip #{id} </option>
+                    ))}
                   </FormControl>
                 </FormGroup>
               )
@@ -78,7 +101,13 @@ class Commission extends React.Component { // eslint-disable-line react/prefer-s
             </Col>
             <Col md={4}>
               <h4>Inspiration</h4>
-              <input type="text" name="inspiration" onChange={(e) => this.handleInspiration(e)} className="form-control" />
+              <input
+                type="text"
+                name="inspiration"
+                onChange={(e) => this.handleInspiration(e)}
+                className="form-control"
+                placeholder="browse for inspiration, type in their id here"
+              />
             </Col>
 
 
@@ -101,6 +130,17 @@ class Commission extends React.Component { // eslint-disable-line react/prefer-s
               </TulipFrame>}
             </Col>
 
+          </Row>
+          <Row>
+            {ethereum && ethereum.connected ?
+              foundation.genome && inspiration.genome && (
+                <button className="btn btn-block btn-lg btn-inverse mt-3" onClick={() => this.handleCommission()}>
+                Commission a tulip
+              </button>) : (
+                <div>
+                  Please connect to MetaMask to commission a tulip.
+                </div>
+            )}
           </Row>
         </Grid>
       </div>

@@ -25,8 +25,9 @@ const Header = styled.h1`
   width: 100%;
 `;
 
+const PAGE_SIZE = 100;
 
-class MyCollection extends React.Component { // eslint-disable-line react/prefer-stateless-function
+class Browse extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
   constructor(props) {
     super(props);
@@ -34,38 +35,26 @@ class MyCollection extends React.Component { // eslint-disable-line react/prefer
   }
 
   componentWillReceiveProps(nextProps) {
-    const { ethereum: { tulipArtist, account, tulips: myTulips }, match: { params: { id } } } = nextProps;
+    const { ethereum: { tulipArtist }, match: { params: { page } } } = nextProps;
 
     this.tulips = {};
+    const tokens = Array.from(Array(PAGE_SIZE).keys()).map((i) => i + ((page || 0) * PAGE_SIZE));
+    let tokensToGet = tokens.length;
 
-    if (account === id) {
-      this.setState({ tulips: myTulips, account: id });
-      return;
-    }
-
-    this.setState({ account: id });
-
-    // if not own collection
-    tulipArtist.methods.getAllTokens(id).call(
-      (err, res) => {
-        const tokens = res;
-        let tokensToGet = tokens.length;
-        map(tokens, (t) => {
-          tulipArtist.methods.getTulip(t).call(
-            (err2, res2) => {
-              this.tulips[t] = omit(res2, '0', '1', '2', '3', '4');
-              tokensToGet -= 1;
-              if (tokensToGet === 0) {
-                this.setState({ tulips: this.tulips });
-              }
-            });
+    map(tokens, (t) => {
+      tulipArtist.methods.getTulip(t).call(
+        (err2, res2) => {
+          this.tulips[t] = omit(res2, '0', '1', '2', '3', '4');
+          tokensToGet -= 1;
+          if (tokensToGet === 0) {
+            this.setState({ tulips: this.tulips });
+          }
         });
-      });
+    });
   }
 
   render() {
     const { account } = this.state;
-
     return (
       <div>
         <Navigation account={account} />
@@ -79,8 +68,12 @@ class MyCollection extends React.Component { // eslint-disable-line react/prefer
             <Col md={12}>
               <Row>
                 <Header>
-                  Collection {account}
+                  Browse
                 </Header>
+                <div>
+                  <a className="btn btn-block btn-lg btn-primary">Prev</a>
+                  <a className="btn btn-block btn-lg btn-primary">Next</a>
+                </div>
                 <Collection />
               </Row>
             </Col>
@@ -92,10 +85,10 @@ class MyCollection extends React.Component { // eslint-disable-line react/prefer
   }
 }
 
-MyCollection.propTypes = {
+Browse.propTypes = {
   match: PropTypes.object.isRequired,
   ethereum: PropTypes.object.isRequired,
 };
 
 
-export default withTulipArtist()(MyCollection);
+export default withTulipArtist()(Browse);

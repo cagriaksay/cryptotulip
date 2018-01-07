@@ -12,7 +12,7 @@ contract CryptoTulip is Destructible, Pausable, BasicNFT {
     function CryptoTulip() public {
         // tulip-zero
         _createTulip(bytes32(-1), 0, 0, 0, address(0));
-        paused = true;
+        paused = false;
     }
 
     string public name = 'CryptoTulip';
@@ -49,7 +49,7 @@ contract CryptoTulip is Destructible, Pausable, BasicNFT {
         uint64 generation
     ) {
         require(_id > 0);
-        Tulip storage tulip = tulips[_id - 1];
+        Tulip storage tulip = tulips[_id];
 
         genome = tulip.genome;
         blockNumber = tulip.block;
@@ -170,7 +170,7 @@ contract CryptoTulip is Destructible, Pausable, BasicNFT {
             generation: uint64(_generation)
         });
 
-        uint256 newTulipId = tulips.push(newTulip);
+        uint256 newTulipId = tulips.push(newTulip) - 1;
         _transfer(0, _owner, newTulipId);
         totalTokens++;
         return newTulipId;

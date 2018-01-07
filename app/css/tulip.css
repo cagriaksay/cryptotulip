@@ -109,3 +109,7 @@ ul {
 .navbar-brand {
   margin-left: -40px !important;
 }
+
+.btn {
+  cursor: pointer;
+}
