@@ -31,9 +31,16 @@ class Collection extends React.Component { // eslint-disable-line react/prefer-s
       <CollectionFrame>
         {map(tulips, (t, i) => (
           <TulipBox key={i}>
-            <Tulip genome={t.genome} width={250} />
+            <a href={`/tulip/${t.id}`} >
+              <Tulip genome={t.genome} width={250} />
+            </a>
           </TulipBox>
         ))}
+        {(!tulips || tulips.length === 0) &&
+          <h3>
+            no tulips here.
+          </h3>
+        }
       </CollectionFrame>
     );
   }

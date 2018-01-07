@@ -34,7 +34,7 @@ contract CryptoTulip is Destructible, Pausable, BasicNFT {
 
     Tulip[] tulips;
 
-    uint256 public artistFees = 10 finney;
+    uint256 public artistFees = 1 finney;
 
     function setArtistFees(uint256 _newFee) external onlyOwner {
         artistFees = _newFee;
@@ -83,6 +83,10 @@ contract CryptoTulip is Destructible, Pausable, BasicNFT {
         require(msg.sender == tokenOwner[_id]);
         _tokenMetadata[_id] = _newName;
         MetadataUpdated(_id, msg.sender, _newName);
+    }
+
+    function setUsername(string _username) external whenNotPaused {
+        usernames[msg.sender] = _username;
     }
 
 
@@ -173,3 +177,7 @@ contract CryptoTulip is Destructible, Pausable, BasicNFT {
     }
 
 }
+
+
+
+

@@ -207,11 +207,11 @@ class Experiment extends React.Component {
                 <Title className="text-right">Inspiration</Title>
                 <Tulip genome={inspiration} width={200} className="float-right parent-tulip" />
               </Col>
-              <Col md={12}>
-                <button className="btn btn-block btn-lg btn-inverse mt-3" onClick={() => this.paintNewTulip()}>
-                  <span className="fui-triangle-down mr-5" />
+              <Col md={12} className="text-center">
+                <button className="btn btn-primary mt-3" onClick={() => this.paintNewTulip()}>
+                  <span className="fui-triangle-down mr-3" />
                   Paint new tulip
-                  <span className="fui-triangle-down ml-5" />
+                  <span className="fui-triangle-down ml-3" />
                 </button>
               </Col>
               <Col md={12}>

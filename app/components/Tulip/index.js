@@ -80,6 +80,8 @@ export const genesToString = (genes) => {
 
 
 const TulipFrame = styled.div`
+  overflow: hidden;
+  border-radius: 50%;
   background: #fff;
   border: 1px solid #95A5A6;
   width: ${(props) => props.width}px;

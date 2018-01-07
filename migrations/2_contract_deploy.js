@@ -1,7 +1,7 @@
 /* eslint-disable */
 
-var TulipArtist = artifacts.require('TulipArtist');
+var CryptoTulip = artifacts.require('CryptoTulip');
 
 module.exports = function(deployer) {
-  deployer.deploy(TulipArtist);
+  deployer.deploy(CryptoTulip);
 };

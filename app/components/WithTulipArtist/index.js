@@ -7,7 +7,7 @@
 import React from 'react';
 // import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { map, omit } from 'lodash';
+import { map, omit, assign } from 'lodash';
 import { ABI } from '../abi';
 
 export function withTulipArtist() {
@@ -35,7 +35,7 @@ export function withTulipArtist() {
         if (newAccount !== account) {
           // eslint-disable-next-line
           const tulipArtist = new web3.eth.Contract(ABI,
-            '0x345ca3e014aaf5dca488057592ee47305d9b3e10', {
+            '0x8acee021a27779d8e98b9650722676b850b25e11', {
               from: newAccount,
               gasPrice: '25000000000',
             });
@@ -49,10 +49,10 @@ export function withTulipArtist() {
               map(tokens, (t) => {
                 tulipArtist.methods.getTulip(t).call(
                   (err2, res2) => {
-                    this.tulips[t] = omit(res2, '0', '1', '2', '3', '4');
+                    this.tulips[t] = assign({}, { id: t }, omit(res2, '0', '1', '2', '3', '4'));
                     tokensToGet -= 1;
                     if (tokensToGet === 0) {
-                      this.setState({ tulips: this.tulips });
+                      this.setState({ tulips: this.tulips, tulipIds: tokens });
                     }
                   });
               });
