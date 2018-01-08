@@ -25,6 +25,11 @@ const Header = styled.h1`
   width: 100%;
 `;
 
+const Arrows = styled.div`
+  width: 100%;
+  margin-top: 20px;
+`;
+
 const PAGE_SIZE = 100;
 
 class Browse extends React.Component { // eslint-disable-line react/prefer-stateless-function
@@ -70,10 +75,10 @@ class Browse extends React.Component { // eslint-disable-line react/prefer-state
                 <Header>
                   Browse
                 </Header>
-                <div>
-                  <a className="btn btn-block btn-lg btn-primary">Prev</a>
-                  <a className="btn btn-block btn-lg btn-primary">Next</a>
-                </div>
+                <Arrows>
+                  <a className="btn btn-lg btn-primary"><span className="fui-arrow-left" /></a>
+                  <a className="btn btn-lg btn-primary float-right"><span className="fui-arrow-right" /></a>
+                </Arrows>
                 <Collection />
               </Row>
             </Col>

@@ -1,0 +1,4 @@
+
+export const GAS_PRICE = '25000000000';
+
+export const CONTRACT_ADDRESS = '0x5034f49b27353cedc562b49ea91c7438ea351d36';

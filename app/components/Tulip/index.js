@@ -89,6 +89,10 @@ const TulipFrame = styled.div`
   height: ${(props) => props.width}px;
 `;
 
+const Button = styled.button`
+  line-height: ${(props) => props.width}px;
+`;
+
 class Tulip extends React.Component {
 
   drawLine(draw, genes) {
@@ -163,15 +167,14 @@ class Tulip extends React.Component {
 
   render() {
     const { width, genome, onReveal, id } = this.props;
-
     const reveal = genome === '0x0000000000000000000000000000000000000000000000000000000000000000';
 
     return (
       <TulipFrame width={width} className={this.props.className}>
         {reveal ? (
-          <button className="btn btn-block btn-secondary" onClick={() => onReveal(id)}>
+          <Button width={width} className="btn btn-block btn-secondary" onClick={() => onReveal(id)}>
             Reveal
-          </button>
+          </Button>
         ) : (
           <div ref={(ref) => this.drawTulip(ref)}></div>
         )}

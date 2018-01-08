@@ -12,6 +12,7 @@ import { withTulipArtist } from 'components/WithTulipArtist/index';
 import styled from 'styled-components';
 import { Grid, Row, Col, FormControl, FormGroup } from 'react-bootstrap';
 import Navigation from 'components/Navigation';
+import { GAS_PRICE } from '../../components/constants';
 
 
 const TulipFrame = styled.div`
@@ -56,7 +57,8 @@ class Commission extends React.Component { // eslint-disable-line react/prefer-s
 
     tulipArtist.methods.commissionArt(
       foundation.id, inspiration.id).send({
-        gasLimit: 30000,
+        gas: 158267,
+        gasPrice: GAS_PRICE,
         value: web3.utils.toWei('1', 'finney'),
         from: account,
       },

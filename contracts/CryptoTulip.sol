@@ -67,13 +67,12 @@ contract CryptoTulip is Destructible, Pausable, BasicNFT {
 
         require(msg.sender == tokenOwner[_foundation]);
         require(msg.value >= artistFees);
-        return _createTulip(0, _foundation, _inspiration, tulips[_foundation].generation + 1, msg.sender);
+        return _createTulip(bytes32(0), _foundation, _inspiration, tulips[_foundation].generation + 1, msg.sender);
     }
 
     // Called to reveal commissioned art.
     // Needs to be called at least 1 block after commissioning.
     function revealArt(uint256 _id) external whenNotPaused {
-        require(tulips[_id].genome == bytes32(0));
         _creativeProcess(_id);
     }
 
@@ -132,26 +131,29 @@ contract CryptoTulip is Destructible, Pausable, BasicNFT {
 
         require(tulip.genome == bytes32(0));
         require(tulip.block < block.number);
-        require(tulip.block > block.number - 256);
 
         bytes32 rand = block.blockhash(tulip.block);
 
         Tulip memory foundation = tulips[tulip.foundation];
         Tulip memory inspiration = tulips[tulip.inspiration];
 
+        bytes32 genome = bytes32(0);
+
         for (uint8 i =0; i<32; i++) {
             if (uint8(rand[i]) % 10 < 2) {
-              tulips[_id].genome |=
+              genome |=
                 bytes32(uint8(foundation.genome[i]) - 16 + (uint8(keccak256(rand[i])[i])/8)) >> (i * 8);
             }
             else if (uint8(rand[i]) % 10 < 9) {
-                tulips[_id].genome |= bytes32(uint8(rand[i]) % 10 < 7 ?
+                genome |= bytes32(uint8(rand[i]) % 10 < 7 ?
                     foundation.genome[i] : inspiration.genome[i]) >> (i * 8);
             }
             else {
-                tulips[_id].genome |= bytes32(keccak256(rand[i])[i]) >> (i * 8);
+                genome |= bytes32(keccak256(rand[i])[i]) >> (i * 8);
             }
         }
+
+        tulips[_id].genome = genome;
     }
 
     function _createTulip(

@@ -163,6 +163,7 @@ class Experiment extends React.Component {
 
     const receipt = tulipArtist.methods.originalArtwork(
       `0x${genome}`, account).send({
+        gasLimit: 189281,
         value: web3.utils.toWei('1', 'finney'),
         from: account,
       },

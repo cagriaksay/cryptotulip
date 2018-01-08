@@ -9,6 +9,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { map, omit, assign } from 'lodash';
 import { ABI } from '../abi';
+import { GAS_PRICE, CONTRACT_ADDRESS } from '../constants';
 
 export function withTulipArtist() {
   return (WrappedComponent) =>
@@ -35,9 +36,9 @@ export function withTulipArtist() {
         if (newAccount !== account) {
           // eslint-disable-next-line
           const tulipArtist = new web3.eth.Contract(ABI,
-            '0x4e71920b7330515faf5ea0c690f1ad06a85fb60c', {
+            CONTRACT_ADDRESS, {
               from: newAccount,
-              gasPrice: '25000000000',
+              gasPrice: GAS_PRICE,
             });
 
           this.tulips = {};
