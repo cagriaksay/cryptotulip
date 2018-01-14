@@ -6,7 +6,6 @@
 
 import React from 'react';
 import styled from 'styled-components';
-// import NetworkStatus from 'react-web3-network-status';
 
 const Pipe = styled.h3`
   font-family: 'Courgette', cursive;

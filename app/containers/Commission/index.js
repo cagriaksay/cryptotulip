@@ -12,11 +12,15 @@ import { withTulipArtist } from 'components/WithTulipArtist/index';
 import styled from 'styled-components';
 import { Grid, Row, Col, FormControl, FormGroup } from 'react-bootstrap';
 import Navigation from 'components/Navigation';
-import { GAS_PRICE } from '../../components/constants';
+import { GAS_PRICE, EXPLORER } from '../../components/constants';
 
 
 const TulipFrame = styled.div`
   margin: 50px auto;
+`;
+
+const Transactions = styled.div`
+
 `;
 
 class Commission extends React.Component { // eslint-disable-line react/prefer-stateless-function
@@ -24,7 +28,7 @@ class Commission extends React.Component { // eslint-disable-line react/prefer-s
   constructor(props) {
     super(props);
 
-    this.state = { foundation: '', inspiration: '' };
+    this.state = { foundation: '', inspiration: '', transactions: [] };
   }
 
   handleFoundation(event) {
@@ -63,18 +67,13 @@ class Commission extends React.Component { // eslint-disable-line react/prefer-s
         from: account,
       },
       (err, res) => {
-        // eslint-disable-next-line
-        alert(res);
-      }).on('receipt', (receipt1) => {
-        // receipt example
-        // eslint-disable-next-line
-        console.log(receipt1);
+        this.setState({ transactions: this.state.transactions.push(res) });
       });
   }
 
 
   render() {
-    const { foundation, inspiration } = this.state;
+    const { foundation, inspiration, transactions } = this.state;
     const { ethereum, ethereum: { account, tulipIds } } = this.props;
 
     return (
@@ -146,6 +145,11 @@ class Commission extends React.Component { // eslint-disable-line react/prefer-s
 
           </Row>
           <Row>
+            <Transactions>
+              {transactions.map((t) => (
+                <a href={`${EXPLORER}${t}`}>transaction {t}</a>
+              ))}
+            </Transactions>
             {ethereum && ethereum.connected ?
               foundation.genome && inspiration.genome && (
                 <button className="btn btn-block btn-lg btn-inverse mt-3" onClick={() => this.handleCommission()}>

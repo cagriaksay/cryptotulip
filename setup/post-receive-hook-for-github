@@ -1,0 +1,24 @@
+#!/bin/bash
+HOME="/home/cagriaksay/"
+today=`date '+%Y_%m_%d__%H_%M_%S'`;
+
+while read oldrev newrev ref
+do
+    # only checking out the master (or whatever branch you would like to deploy)
+    if [[ $ref =~ .*/master$ ]];
+    then
+        echo "Master ref received.  Deploying master branch to production..."
+        git --work-tree="$HOME/crypto" --git-dir="$HOME/deploy" checkout -f
+
+        cd $HOME/crypto
+        rm -rf $HOME/crypto/build
+        yarn install --ignore-engines
+        npm run build > "$HOME/build_log"
+        target="/var/www/cryptos/$today"
+        cp -r $HOME/crypto/build $target
+        ln -sfT $target /var/www/cryptos/crypto
+    else
+        echo "Ref $ref successfully received.  Doing nothing: only the master branch may be deployed on this server."
+    fi
+
+done
