@@ -55,55 +55,11 @@ class Experiment extends React.Component {
     this.state = {
       account: null,
       genome: '2c756b5f8893b110005470a8c0a7c0799b8c714d542c21618f003fa900489e00', // '0'.repeat(GENOME_LENGTH),
-      foundation: sample(population),
+      foundation: population[2],
       inspiration: sample(population),
       population,
     };
-
-    // if (typeof document.web3 !== 'undefined') {
-    //   this.web3 = new Web3(document.web3.currentProvider);
-    // } else {
-    //   const provider = new Web3.providers.HttpProvider('http://localhost:8545');
-    //   this.web3 = new Web3(provider);
-    // }
   }
-
-  // componentWillReceiveProps(nextProps) {
-  //   const { ethereum } = nextProps;
-  //   const { account } = this.state;
-  //   const newAccount = ethereum.accounts.value[0];
-
-  //   if (newAccount !== account) {
-  //     const web3 = ethereum.connection.web3;
-
-  //     // eslint-disable-next-line
-  //     this.tulipArtist = new web3.eth.Contract(ABI,
-  //       '0xecfcab0a285d3380e488a39b4bb21e777f8a4eac', {
-  //         from: newAccount,
-  //         gasPrice: '25000000000',
-  //       });
-
-  //     this.tulips = {};
-
-  //     this.tulipArtist.methods.getAllTokens(newAccount).call(
-  //       (err, res) => {
-  //         const tokens = res;
-  //         let tokensToGet = tokens.length;
-  //         map(tokens, (t) => {
-  //           this.tulipArtist.methods.getTulip(t).call(
-  //             (err2, res2) => {
-  //               this.tulips[t] = omit(res2, '0', '1', '2', '3', '4');
-  //               tokensToGet -= 1;
-  //               if (tokensToGet === 0) {
-  //                 this.setState({ tulips: this.tulips });
-  //               }
-  //             });
-  //         });
-  //       });
-
-  //     this.setState({ account: newAccount });
-  //   }
-  // }
 
   onSliderChanged(index, value) {
     const { genome } = this.state;
@@ -163,7 +119,7 @@ class Experiment extends React.Component {
 
     const receipt = tulipArtist.methods.originalArtwork(
       `0x${genome}`, account).send({
-        gasLimit: 189281,
+        gasLimit: 190000,
         value: web3.utils.toWei('1', 'finney'),
         from: account,
       },

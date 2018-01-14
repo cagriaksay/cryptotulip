@@ -113,3 +113,7 @@ ul {
 .btn {
   cursor: pointer;
 }
+
+.collection-name {
+  width: 600px;
+}

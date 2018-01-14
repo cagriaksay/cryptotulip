@@ -500,6 +500,39 @@ export const ABI = [
     "constant": false,
     "inputs": [
       {
+        "name": "_username",
+        "type": "string"
+      }
+    ],
+    "name": "setUsername",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "usernames",
+    "outputs": [
+      {
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
         "name": "newOwner",
         "type": "address"
       }
@@ -674,4 +707,4 @@ export const ABI = [
     "name": "OwnershipTransferred",
     "type": "event"
   }
-];
+]

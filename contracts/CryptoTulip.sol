@@ -91,7 +91,7 @@ contract CryptoTulip is Destructible, Pausable, BasicNFT {
 
     // Owner methods
 
-    uint256 internal constant ORIGINAL_ARTWORK_LIMIT = 50000;
+    uint256 internal constant ORIGINAL_ARTWORK_LIMIT = 10000;
     uint256 internal originalCount = 0;
 
     // Let's the caller create an original artwork with given genome.
@@ -109,8 +109,8 @@ contract CryptoTulip is Destructible, Pausable, BasicNFT {
             originalCount++;
         } else {
             require(
-                (msg.value >= artistFees && _virtualLength[msg.sender] < 10)
-                || msg.sender == owner);
+                (msg.value >= artistFees && _virtualLength[msg.sender] < 10) ||
+                msg.sender == owner);
         }
 
         _createTulip(_genome, 0, 0, 0, newOwner);

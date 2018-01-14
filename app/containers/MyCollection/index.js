@@ -16,6 +16,7 @@ import PropTypes from 'prop-types';
 import { map, omit } from 'lodash';
 import { withTulipArtist } from 'components/WithTulipArtist';
 import Navigation from 'components/Navigation';
+import InlineEdit from 'react-edit-inline';
 
 const Header = styled.h1`
   margin-top: 20px;
@@ -34,9 +35,19 @@ class MyCollection extends React.Component { // eslint-disable-line react/prefer
   }
 
   componentWillReceiveProps(nextProps) {
-    const { ethereum: { tulipArtist, account, tulips: myTulips }, match: { params: { id } } } = nextProps;
+    const { ethereum: { tulipArtist, account, tulips: myTulips } } = nextProps;
+    let { match: { params: { id } } } = nextProps;
 
     this.tulips = {};
+
+    if (!id) {
+      id = account;
+    }
+
+    tulipArtist.methods.usernames(id).call(
+      (err2, res) => {
+        this.setState({ username: res });
+      });
 
     if (account === id) {
       this.setState({ tulips: myTulips, account: id });
@@ -63,8 +74,27 @@ class MyCollection extends React.Component { // eslint-disable-line react/prefer
       });
   }
 
+  dataChanged(data) {
+    const { ethereum: { tulipArtist, account } } = this.props;
+    const { username } = data;
+
+    tulipArtist.methods.setUsername(
+      username).send({
+        gas: 158267,
+        from: account,
+      },
+      (err, res) => {
+        // eslint-disable-next-line
+        alert(res);
+      }).on('receipt', (receipt1) => {
+        // receipt example
+        // eslint-disable-next-line
+        console.log(receipt1);
+      });
+  }
+
   render() {
-    const { account } = this.state;
+    const { account, username } = this.state;
 
     return (
       <div>
@@ -79,7 +109,13 @@ class MyCollection extends React.Component { // eslint-disable-line react/prefer
             <Col md={12}>
               <Row>
                 <Header>
-                  Collection {account}
+                  Collection&nbsp;
+                  <InlineEdit
+                    text={username || account}
+                    paramName="username"
+                    change={(d) => this.dataChanged(d)}
+                    activeClassName="collection-name"
+                  />
                 </Header>
                 <Collection />
               </Row>

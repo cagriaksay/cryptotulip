@@ -83,6 +83,18 @@ class Commission extends React.Component { // eslint-disable-line react/prefer-s
         <Grid>
           <Row>
             <Col md={4}>
+              You can commission a new abstract
+              painting from the CryptoTulip contract.
+              Select one of your tulips as your foundation.
+              Your new tulip will take most of its traits from
+              this parent. Second, select any tulip as inspiration,
+              which will give the remaining traits to your new
+              tulip. After commissioning, wait for the next block
+              to reveal the painting.
+            </Col>
+          </Row>
+          <Row>
+            <Col md={4}>
               <h4>Foundation</h4>
               {tulipIds ? (
                 <FormGroup>

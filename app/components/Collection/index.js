@@ -7,7 +7,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { map } from 'underscore';
+import { map, sortBy } from 'underscore';
 import { withTulipArtist } from '../WithTulipArtist';
 import Tulip from '../Tulip';
 
@@ -29,11 +29,11 @@ class Collection extends React.Component { // eslint-disable-line react/prefer-s
 
     return (
       <CollectionFrame>
-        {map(tulips, (t, i) => (
+        {map(sortBy(tulips, (t) => -parseInt(t.id, 10)), (t, i) => (
           <TulipBox key={i}>
             <a href={`/tulip/${t.id}`} >
               <Tulip genome={t.genome} width={250} />
-              <span>{t.id}</span>
+              <span>#{t.id}</span>
             </a>
           </TulipBox>
         ))}

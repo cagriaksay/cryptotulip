@@ -13,6 +13,8 @@ import Tulip from 'components/Tulip';
 import { withTulipArtist } from 'components/WithTulipArtist/index';
 import styled from 'styled-components';
 import { Grid, Row } from 'react-bootstrap';
+import InlineEdit from 'react-edit-inline';
+import { GAS_PRICE } from '../../components/constants';
 
 
 const TulipFrame = styled.div`
@@ -42,7 +44,7 @@ class TulipPage extends React.Component { // eslint-disable-line react/prefer-st
   constructor(props) {
     super(props);
 
-    this.state = { tulip: null };
+    this.state = { tulip: null, title: 'untitled' };
   }
 
   componentWillReceiveProps(nextProps) {
@@ -54,12 +56,17 @@ class TulipPage extends React.Component { // eslint-disable-line react/prefer-st
 
         tulipArtist.methods.getTulip(res.foundation).call(
           (err2, res2) => {
-            this.setState({ foundation: assign({}, { id }, omit(res2, '0', '1', '2', '3', '4')) });
+            this.setState({ foundation: assign({}, { id: res.foundation }, omit(res2, '0', '1', '2', '3', '4')) });
           });
 
         tulipArtist.methods.getTulip(res.inspiration).call(
           (err2, res2) => {
-            this.setState({ inspiration: assign({}, { id }, omit(res2, '0', '1', '2', '3', '4')) });
+            this.setState({ inspiration: assign({}, { id: res.inspiration }, omit(res2, '0', '1', '2', '3', '4')) });
+          });
+
+        tulipArtist.methods.tokenMetadata(id).call(
+          (err2, res2) => {
+            this.setState({ title: res2 });
           });
       });
   }
@@ -70,6 +77,7 @@ class TulipPage extends React.Component { // eslint-disable-line react/prefer-st
     tulipArtist.methods.revealArt(id)
       .send({
         gasLimit: 241293,
+        gasPrice: GAS_PRICE,
         from: account,
       },
       (err, res) => {
@@ -81,9 +89,29 @@ class TulipPage extends React.Component { // eslint-disable-line react/prefer-st
       });
   }
 
+  dataChanged(data) {
+    const { ethereum: { tulipArtist, account }, match: { params: { id } } } = this.props;
+    const { message } = data;
+
+    tulipArtist.methods.nameArt(
+      id, message).send({
+        gas: 158267,
+        gasPrice: GAS_PRICE,
+        from: account,
+      },
+      (err, res) => {
+        // eslint-disable-next-line
+        alert(res);
+      }).on('receipt', (receipt1) => {
+        // receipt example
+        // eslint-disable-next-line
+        console.log(receipt1);
+      });
+  }
+
   render() {
     const { match: { params: { id } } } = this.props;
-    const { tulip, foundation, inspiration } = this.state;
+    const { tulip, foundation, inspiration, title } = this.state;
 
     if (tulip !== null && !tulip.genome) {
       return (
@@ -111,6 +139,13 @@ class TulipPage extends React.Component { // eslint-disable-line react/prefer-st
             <Tulip genome={tulip.genome} width={600} id={tulip.id} onReveal={(revealId) => this.handleReveal(revealId)} />
             #
             {id}
+            &nbsp;
+            <InlineEdit
+              activeClassName="editing"
+              text={title || 'untitled'}
+              paramName="message"
+              change={(d) => this.dataChanged(d)}
+            />
           </TulipFrame>
         </Row>
         <Row>
@@ -121,12 +156,16 @@ class TulipPage extends React.Component { // eslint-disable-line react/prefer-st
             <TulipFrame>
               <Title>foundation</Title>
               <Tulip genome={foundation.genome} width={200} id={foundation.id} />
+              #
+              {foundation.id}
             </TulipFrame>
           }
           {inspiration && inspiration.genome && (
             <TulipFrame>
               <Title>inspiration</Title>
               <Tulip genome={inspiration.genome} width={200} id={inspiration.id} />
+              #
+              {inspiration.id}
             </TulipFrame>
           )}
         </Row>
