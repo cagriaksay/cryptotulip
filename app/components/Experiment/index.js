@@ -44,6 +44,11 @@ const Message = styled.div`
   padding: 20px;
 `;
 
+const TinyPrint = styled.div`
+  font-size: 10px;
+  color: #ECF0F1;
+`;
+
 const ExperimentFrame = styled.div`
 `;
 
@@ -177,14 +182,15 @@ class Experiment extends React.Component {
                     <button className="btn btn-block btn-lg btn-inverse mt-3" onClick={() => this.claimTulip()}>
                       Claim this tulip
                     </button>
-                    block #{block}
                   </div>
                 ) : (
                   <div>
                     Please connect to MetaMask to claim this tulip.
                   </div>
                 )}
-                { account }
+                <TinyPrint>
+                  { account } - block #{block}
+                </TinyPrint>
               </Col>
             </Row>
           </Col>
