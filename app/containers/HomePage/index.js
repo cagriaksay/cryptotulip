@@ -102,6 +102,7 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
                 </Header>
                 <List>
                   <Faq>
+                    <a name="FAQ"> </a>
                     <li><b>How do I start?</b><br />
                       <il>
                         <ul>1- Install Metamask <a href="https://metamask.io/" target="_black">https://metamask.io/</a> and create a wallet.</ul>
@@ -115,7 +116,6 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
                         <ul>6- Send me your feedback! This is an early alpha and nothing is polished. Imagine the UX was smoother.</ul>
                       </il>
                     </li>
-                    <a name="FAQ"> </a>
                     <li><b>Why don&apos;t these tulips look anything like tulips?</b><br />
                     CryptoTulip is a minimalist deconstructionist. Its work will be abstract and unique.</li>
                     <li><b>Why is this  &ldquo;art&rdquo;  ugly?</b><br />

@@ -39,6 +39,11 @@ const Plus = styled.span`
   vertical-align: sub;
 `;
 
+const Message = styled.div`
+  font-size: 18px;
+  padding: 20px;
+`;
+
 const ExperimentFrame = styled.div`
 `;
 
@@ -130,8 +135,8 @@ class Experiment extends React.Component {
   }
 
   render() {
-    const { genome, foundation, inspiration, account, transactions } = this.state;
-    const { ethereum, ethereum: { block } } = this.props;
+    const { genome, foundation, inspiration, transactions } = this.state;
+    const { ethereum, ethereum: { block, account } } = this.props;
 
     return (
       <ExperimentFrame>
@@ -161,7 +166,12 @@ class Experiment extends React.Component {
                 <Tulip genome={genome} width={562} />
               </Col>
               <Col md={12}>
-                <Transactions transactions={transactions} />
+                <Transactions transactions={transactions}>
+                  <Message>
+                    Congratulations! Wait for the arrival of your new painting over
+                    at <a href={`/collection/${account}`}>your collection</a>.
+                  </Message>
+                </Transactions>
                 {ethereum && ethereum.connected ?
                   (<div>
                     <button className="btn btn-block btn-lg btn-inverse mt-3" onClick={() => this.claimTulip()}>

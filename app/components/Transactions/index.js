@@ -17,10 +17,13 @@ const TransactionsFrame = styled.div`
 `;
 
 function Transactions(props) {
-  const { transactions } = props;
+  const { transactions, children } = props;
 
   return (
     <TransactionsFrame>
+      {transactions.length > 0 &&
+        children
+      }
       {transactions.map((t) => (
         <div key={t}>
           <a href={`${EXPLORER}${t}`} target="_blank">transaction {t} submitted.</a>
@@ -33,6 +36,7 @@ function Transactions(props) {
 
 Transactions.propTypes = {
   transactions: PropTypes.array.isRequired,
+  children: PropTypes.object,
 };
 
 export default Transactions;
