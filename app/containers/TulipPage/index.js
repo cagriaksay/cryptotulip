@@ -10,6 +10,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { omit, assign } from 'lodash';
 import Tulip from 'components/Tulip';
+import Transactions from 'components/Transactions';
 import { withTulipArtist } from 'components/WithTulipArtist/index';
 import styled from 'styled-components';
 import { Grid, Row } from 'react-bootstrap';
@@ -44,7 +45,7 @@ class TulipPage extends React.Component { // eslint-disable-line react/prefer-st
   constructor(props) {
     super(props);
 
-    this.state = { tulip: null, title: 'untitled' };
+    this.state = { tulip: null, title: 'untitled', transactions: [] };
   }
 
   componentWillReceiveProps(nextProps) {
@@ -81,11 +82,7 @@ class TulipPage extends React.Component { // eslint-disable-line react/prefer-st
         from: account,
       },
       (err, res) => {
-        // eslint-disable-next-line
-        console.log(err + res);
-      }).on('receipt', (receipt) => {
-        // eslint-disable-next-line
-        console.log(receipt);
+        this.setState({ transactions: this.state.transactions.concat([res]) });
       });
   }
 
@@ -100,18 +97,13 @@ class TulipPage extends React.Component { // eslint-disable-line react/prefer-st
         from: account,
       },
       (err, res) => {
-        // eslint-disable-next-line
-        alert(res);
-      }).on('receipt', (receipt1) => {
-        // receipt example
-        // eslint-disable-next-line
-        console.log(receipt1);
+        this.setState({ transactions: this.state.transactions.concat([res]) });
       });
   }
 
   render() {
     const { match: { params: { id } } } = this.props;
-    const { tulip, foundation, inspiration, title } = this.state;
+    const { tulip, foundation, inspiration, title, transactions } = this.state;
 
     if (tulip !== null && !tulip.genome) {
       return (
@@ -149,6 +141,7 @@ class TulipPage extends React.Component { // eslint-disable-line react/prefer-st
           </TulipFrame>
         </Row>
         <Row>
+          <Transactions transactions={transactions} />
           <Generation>
             generation {tulip.generation}
           </Generation>

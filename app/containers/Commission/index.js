@@ -12,15 +12,12 @@ import { withTulipArtist } from 'components/WithTulipArtist/index';
 import styled from 'styled-components';
 import { Grid, Row, Col, FormControl, FormGroup } from 'react-bootstrap';
 import Navigation from 'components/Navigation';
-import { GAS_PRICE, EXPLORER } from '../../components/constants';
+import Transactions from 'components/Transactions';
+import { GAS_PRICE } from '../../components/constants';
 
 
 const TulipFrame = styled.div`
   margin: 50px auto;
-`;
-
-const Transactions = styled.div`
-
 `;
 
 class Commission extends React.Component { // eslint-disable-line react/prefer-stateless-function
@@ -67,7 +64,7 @@ class Commission extends React.Component { // eslint-disable-line react/prefer-s
         from: account,
       },
       (err, res) => {
-        this.setState({ transactions: this.state.transactions.push(res) });
+        this.setState({ transactions: this.state.transactions.concat([res]) });
       });
   }
 
@@ -145,11 +142,7 @@ class Commission extends React.Component { // eslint-disable-line react/prefer-s
 
           </Row>
           <Row>
-            <Transactions>
-              {transactions.map((t) => (
-                <a href={`${EXPLORER}${t}`}>transaction {t}</a>
-              ))}
-            </Transactions>
+            <Transactions transactions={transactions} />
             {ethereum && ethereum.connected ?
               foundation.genome && inspiration.genome && (
                 <button className="btn btn-block btn-lg btn-inverse mt-3" onClick={() => this.handleCommission()}>

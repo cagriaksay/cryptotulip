@@ -115,9 +115,8 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
                     You can also buy tulips on the marketplace soon.
                     </li>
                     <li><b>How much does it cost?</b><br />
-                    Artist fee is 1 finney right now (one thousanth of ETH). Other operations cost only gas.
-                    Marketplace fees are 3% of the transaction value. <b>Please keep in mind that this is for fun and tulips
-                    are worthless.</b>
+                    Artist&apos;s fee is 1 finney right now (one thousanth of ETH). Other operations cost only gas.
+                    <b>Please keep in mind that this is for fun and tulips are worthless.</b>
                     </li>
                     <li><b>Can we undo anything at all?</b><br />
                     Unfortunately no! It&apos;s important to note that all interactions with CryptoTulip are final.

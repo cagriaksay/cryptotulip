@@ -171,7 +171,7 @@ class Tulip extends React.Component {
     return (
       <TulipFrame width={width} className={this.props.className}>
         {reveal ? (
-          <Button width={width} className="btn btn-block btn-secondary" onClick={() => onReveal(id)}>
+          <Button width={width} className="btn btn-block btn-secondary reveal-button" onClick={() => onReveal(id)}>
             Reveal
           </Button>
         ) : (

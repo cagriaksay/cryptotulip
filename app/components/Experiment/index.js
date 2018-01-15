@@ -11,6 +11,7 @@ import styled from 'styled-components';
 import { Row, Col } from 'react-bootstrap';
 import Slider from 'rc-slider';
 import { sample } from 'underscore';
+import Transactions from 'components/Transactions';
 // import { withEthereum } from 'react-ethereum-provider';
 // import { withTulipArtist } from '../WithTulipArtist';
 
@@ -58,6 +59,7 @@ class Experiment extends React.Component {
       foundation: population[2],
       inspiration: sample(population),
       population,
+      transactions: [],
     };
   }
 
@@ -116,27 +118,19 @@ class Experiment extends React.Component {
     const { ethereum: { tulipArtist } } = this.props;
     const web3 = this.props.ethereum.connection.web3;
 
-
-    const receipt = tulipArtist.methods.originalArtwork(
+    tulipArtist.methods.originalArtwork(
       `0x${genome}`, account).send({
         gasLimit: 190000,
         value: web3.utils.toWei('1', 'finney'),
         from: account,
       },
       (err, res) => {
-        // eslint-disable-next-line
-        alert(res);
-      }).on('receipt', (receipt1) => {
-        // receipt example
-        // eslint-disable-next-line
-        console.log(receipt1);
+        this.setState({ transactions: this.state.transactions.concat([res]) });
       });
-
-    return receipt;
   }
 
   render() {
-    const { genome, foundation, inspiration, account } = this.state;
+    const { genome, foundation, inspiration, account, transactions } = this.state;
     const { ethereum } = this.props;
 
     return (
@@ -167,6 +161,7 @@ class Experiment extends React.Component {
                 <Tulip genome={genome} width={562} />
               </Col>
               <Col md={12}>
+                <Transactions transactions={transactions} />
                 {ethereum && ethereum.connected ?
                   (<button className="btn btn-block btn-lg btn-inverse mt-3" onClick={() => this.claimTulip()}>
                     Claim this tulip

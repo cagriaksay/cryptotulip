@@ -12,6 +12,7 @@ import { Helmet } from 'react-helmet';
 import { Grid, Row, Col } from 'react-bootstrap';
 import styled from 'styled-components';
 import Collection from 'components/Collection';
+import Transactions from 'components/Transactions';
 import PropTypes from 'prop-types';
 import { map, omit } from 'lodash';
 import { withTulipArtist } from 'components/WithTulipArtist';
@@ -31,7 +32,7 @@ class MyCollection extends React.Component { // eslint-disable-line react/prefer
 
   constructor(props) {
     super(props);
-    this.state = { account: '' };
+    this.state = { account: '', transactions: [] };
   }
 
   componentWillReceiveProps(nextProps) {
@@ -84,17 +85,12 @@ class MyCollection extends React.Component { // eslint-disable-line react/prefer
         from: account,
       },
       (err, res) => {
-        // eslint-disable-next-line
-        alert(res);
-      }).on('receipt', (receipt1) => {
-        // receipt example
-        // eslint-disable-next-line
-        console.log(receipt1);
+        this.setState({ transactions: this.state.transactions.concat([res]) });
       });
   }
 
   render() {
-    const { account, username } = this.state;
+    const { account, username, transactions } = this.state;
 
     return (
       <div>
@@ -109,13 +105,14 @@ class MyCollection extends React.Component { // eslint-disable-line react/prefer
             <Col md={12}>
               <Row>
                 <Header>
-                  Collection&nbsp;
                   <InlineEdit
                     text={username || account}
                     paramName="username"
                     change={(d) => this.dataChanged(d)}
                     activeClassName="collection-name"
                   />
+                  &nbsp;Collection
+                  <Transactions transactions={transactions} />
                 </Header>
                 <Collection />
               </Row>
