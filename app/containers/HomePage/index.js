@@ -102,6 +102,16 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
                 </Header>
                 <List>
                   <Faq>
+                    <li><b>How do I start?</b><br />
+                      <il>
+                        <li>1- Install Metamask <a href="https://metamask.io/" target="_black">https://metamask.io/</a> and create a wallet.</li>
+                        <li>2- Switch to Rinkeby network [IMPORTANT]</li>
+                        <li>3- Visit <a href="https://faucet.rinkeby.io/" target="_blank">https://faucet.rinkeby.io/</a> and follow instructions on the page to get some test money for your account: publicly post your address on one of the social networks (e.g. google+) and copy the post link here.</li>
+                        <li>4- Check your Metamask wallet. If you see a balance, you are ready to play.</li>
+                        <li>5- Please note that your every action will take affect after your transaction is approved (usually 15 seconds to a minute). Sometimes you need to refresh the page a few times.</li>
+                        <li>6- Send me your feedback! This is an early alpha and nothing is polished. Imagine the UX was smoother.</li>
+                      </il>
+                    </li>
                     <li><b>Why don&apos;t these tulips look anything like tulips?</b><br />
                     CryptoTulip is a minimalist deconstructionist. Its work will be abstract and unique.</li>
                     <li><b>Why is this  &ldquo;art&rdquo;  ugly?</b><br />
