@@ -120,7 +120,7 @@ class Experiment extends React.Component {
 
     tulipArtist.methods.originalArtwork(
       `0x${genome}`, account).send({
-        gasLimit: 180000,
+        gasLimit: 190000,
         value: web3.utils.toWei('1', 'finney'),
         from: account,
       },
