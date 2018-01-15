@@ -22,8 +22,8 @@ function Transactions(props) {
   return (
     <TransactionsFrame>
       {transactions.map((t) => (
-        <div>
-          <a href={`${EXPLORER}${t}`} target="_blank" key={t}>transaction {t} submitted.</a>
+        <div key={t}>
+          <a href={`${EXPLORER}${t}`} target="_blank">transaction {t} submitted.</a>
           <br />
         </div>
       ))}

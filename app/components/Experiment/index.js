@@ -90,7 +90,7 @@ class Experiment extends React.Component {
     for (let i = 0; i < GENOME_LENGTH; i += 1) {
       const rand = Math.random();
       if (rand < 0.95) {
-        genes[i] = rand < 0.7 ? foundation[i] : inspiration[i];
+        genes[i] = rand < 0.75 ? foundation[i] : inspiration[i];
         if (rand < 0.1) {
           genes[i] += (Math.random() * 16) - 8;
         }
@@ -120,7 +120,7 @@ class Experiment extends React.Component {
 
     tulipArtist.methods.originalArtwork(
       `0x${genome}`, account).send({
-        gasLimit: 190000,
+        gasLimit: 180000,
         value: web3.utils.toWei('1', 'finney'),
         from: account,
       },

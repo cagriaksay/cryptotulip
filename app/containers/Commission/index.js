@@ -58,7 +58,7 @@ class Commission extends React.Component { // eslint-disable-line react/prefer-s
 
     tulipArtist.methods.commissionArt(
       foundation.id, inspiration.id).send({
-        gas: 158267,
+        gas: 206000,
         gasPrice: GAS_PRICE,
         value: web3.utils.toWei('1', 'finney'),
         from: account,

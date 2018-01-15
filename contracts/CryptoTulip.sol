@@ -63,16 +63,11 @@ contract CryptoTulip is Destructible, Pausable, BasicNFT {
     //      and use that other painting accross the street as inspiration.
     // Artist: That'll be 10 finneys. Come back one block later.
     function commissionArt(uint256 _foundation, uint256 _inspiration)
-      external payable whenNotPaused returns (uint) {
-
+      external payable whenNotPaused returns (uint)
+    {
         require(msg.sender == tokenOwner[_foundation]);
         require(msg.value >= artistFees);
-        return _createTulip(bytes32(0), _foundation, _inspiration, tulips[_foundation].generation + 1, msg.sender);
-    }
-
-    // Called to reveal commissioned art.
-    // Needs to be called at least 1 block after commissioning.
-    function revealArt(uint256 _id) external whenNotPaused {
+        uint256 _id = _createTulip(bytes32(0), _foundation, _inspiration, tulips[_foundation].generation + 1, msg.sender);
         _creativeProcess(_id);
     }
 
@@ -122,7 +117,6 @@ contract CryptoTulip is Destructible, Pausable, BasicNFT {
     }
 
 
-
     // *************************************************************************
     // Internal
 
@@ -130,26 +124,29 @@ contract CryptoTulip is Destructible, Pausable, BasicNFT {
         Tulip memory tulip = tulips[_id];
 
         require(tulip.genome == bytes32(0));
-        require(tulip.block < block.number);
-
-        bytes32 rand = block.blockhash(tulip.block);
+        // This is not random. People will know the result before
+        // executing this, because it's based on the last block.
+        // But that's ok. Other way of doing this involved 2 steps,
+        // twice the cost, twice the trouble.
+        bytes32 rand = block.blockhash(block.number - 1);
 
         Tulip memory foundation = tulips[tulip.foundation];
         Tulip memory inspiration = tulips[tulip.inspiration];
 
         bytes32 genome = bytes32(0);
 
-        for (uint8 i =0; i<32; i++) {
-            if (uint8(rand[i]) % 10 < 2) {
-              genome |=
-                bytes32(uint8(foundation.genome[i]) - 16 + (uint8(keccak256(rand[i])[i])/8)) >> (i * 8);
-            }
-            else if (uint8(rand[i]) % 10 < 9) {
-                genome |= bytes32(uint8(rand[i]) % 10 < 7 ?
+        for (uint8 i = 0; i < 32; i++) {
+            uint8 r = uint8(keccak256(rand[i]));
+
+            if (r % 100 < 10) {
+              r = uint8(keccak256(rand[i]));
+              genome |= bytes32(uint8(foundation.genome[i]) - 8 + (r / 16)) >> (i * 8);
+            } else if (r % 100 < 95) {
+                genome |= bytes32(r % 100 < 75 ?
                     foundation.genome[i] : inspiration.genome[i]) >> (i * 8);
-            }
-            else {
-                genome |= bytes32(keccak256(rand[i])[i]) >> (i * 8);
+            } else {
+                r = uint8(keccak256(rand[i]));
+                genome |= bytes32(r) >> (i * 8);
             }
         }
 
@@ -162,8 +159,8 @@ contract CryptoTulip is Destructible, Pausable, BasicNFT {
         uint256 _inspiration,
         uint256 _generation,
         address _owner
-    ) internal returns (uint) {
-
+    ) internal returns (uint)
+    {
         Tulip memory newTulip = Tulip({
             genome: _genome,
             block: uint64(block.number),

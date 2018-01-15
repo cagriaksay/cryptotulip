@@ -111,11 +111,10 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
                     All the information about your tulip is stored on the blockchain.</li>
                     <li><b>How do I buy a tulip?</b><br />
                     During the first month, you can design a tulip and claim it for yourself.
-                    After that, all new tulips must be painted by TulipArtist.
-                    You can also buy tulips on the marketplace soon.
+                    After that, all new tulips must be painted by CryptoTulip.
                     </li>
                     <li><b>How much does it cost?</b><br />
-                    Artist&apos;s fee is 1 finney right now (one thousanth of ETH). Other operations cost only gas.
+                    Artist&apos;s commission is 1 finney right now (one thousanth of ETH). Other operations cost only gas.&nbsp;
                     <b>Please keep in mind that this is for fun and tulips are worthless.</b>
                     </li>
                     <li><b>Can we undo anything at all?</b><br />

@@ -92,7 +92,7 @@ class TulipPage extends React.Component { // eslint-disable-line react/prefer-st
 
     tulipArtist.methods.nameArt(
       id, message).send({
-        gas: 158267,
+        gas: 58267,
         gasPrice: GAS_PRICE,
         from: account,
       },
