@@ -104,15 +104,15 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
                   <Faq>
                     <li><b>How do I start?</b><br />
                       <il>
-                        <lu>1- Install Metamask <a href="https://metamask.io/" target="_black">https://metamask.io/</a> and create a wallet.</lu>
-                        <lu>2- Switch to Rinkeby network [IMPORTANT]</lu>
-                        <lu>3- Visit <a href="https://faucet.rinkeby.io/" target="_blank">https://faucet.rinkeby.io/</a> and follow instructions on
+                        <ul>1- Install Metamask <a href="https://metamask.io/" target="_black">https://metamask.io/</a> and create a wallet.</ul>
+                        <ul>2- Switch to Rinkeby network [IMPORTANT]</ul>
+                        <ul>3- Visit <a href="https://faucet.rinkeby.io/" target="_blank">https://faucet.rinkeby.io/</a> and follow instructions on
                         the page to get some test money for your account: publicly post your address on one of the social networks (e.g. google+)
-                        and copy the post link here.</lu>
-                        <lu>4- Check your Metamask wallet. If you see a balance, you are ready to play.</lu>
-                        <lu>5- Please note that your every action will take affect after your transaction is approved (usually 15 seconds to a minute).
-                         Sometimes you need to refresh the page a few times.</lu>
-                        <lu>6- Send me your feedback! This is an early alpha and nothing is polished. Imagine the UX was smoother.</lu>
+                        and copy the post link here.</ul>
+                        <ul>4- Check your Metamask wallet. If you see a balance, you are ready to play.</ul>
+                        <ul>5- Please note that your every action will take affect after your transaction is approved (usually 15 seconds to a minute).
+                         Sometimes you need to refresh the page a few times.</ul>
+                        <ul>6- Send me your feedback! This is an early alpha and nothing is polished. Imagine the UX was smoother.</ul>
                       </il>
                     </li>
                     <a name="FAQ"> </a>
