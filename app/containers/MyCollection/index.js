@@ -90,7 +90,7 @@ class MyCollection extends React.Component { // eslint-disable-line react/prefer
   }
 
   render() {
-    const { account, username, transactions } = this.state;
+    const { account, username, transactions, tulips } = this.state;
 
     return (
       <div>
@@ -114,7 +114,7 @@ class MyCollection extends React.Component { // eslint-disable-line react/prefer
                   &nbsp;Collection
                   <Transactions transactions={transactions} />
                 </Header>
-                <Collection />
+                <Collection tulips={tulips} />
               </Row>
             </Col>
           </Row>

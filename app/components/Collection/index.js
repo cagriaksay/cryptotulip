@@ -25,7 +25,8 @@ const CollectionFrame = styled.div`
 class Collection extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
   render() {
-    const { ethereum: { tulips } } = this.props;
+    const { ethereum: { tulips: myTulips }, tulips: propTulips } = this.props;
+    const tulips = propTulips || myTulips;
 
     return (
       <CollectionFrame>
@@ -49,6 +50,7 @@ class Collection extends React.Component { // eslint-disable-line react/prefer-s
 
 Collection.propTypes = {
   ethereum: PropTypes.object.isRequired,
+  tulips: PropTypes.object,
 };
 
 
