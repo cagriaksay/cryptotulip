@@ -12,7 +12,7 @@ import PropTypes from 'prop-types';
 
 class Navigation extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
-    const { account } = this.props;
+    const { account, blockNumber } = this.props;
 
     return (
       <Navbar inverse fixedTop>
@@ -28,6 +28,7 @@ class Navigation extends React.PureComponent { // eslint-disable-line react/pref
             <NavItem className="inline" eventKey={2} href="/browse">Browse</NavItem>
             <NavItem className="inline" eventKey={3} href="/commission">Commission</NavItem>
           </Nav>
+          {blockNumber}
         </Navbar.Header>
       </Navbar>
     );
@@ -36,6 +37,7 @@ class Navigation extends React.PureComponent { // eslint-disable-line react/pref
 
 Navigation.propTypes = {
   account: PropTypes.string,
+  blockNumber: PropTypes.string,
 };
 
 export default Navigation;

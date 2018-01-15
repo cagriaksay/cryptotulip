@@ -59,6 +59,11 @@ export function withTulipArtist() {
               });
             });
 
+          web3.eth.getBlockNumber().then((x) => {
+            this.setState({ block: x });
+            return null;
+          });
+
           this.setState({ ...state, account: newAccount, tulipArtist });
         }
       }

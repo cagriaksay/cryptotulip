@@ -131,7 +131,7 @@ class Experiment extends React.Component {
 
   render() {
     const { genome, foundation, inspiration, account, transactions } = this.state;
-    const { ethereum } = this.props;
+    const { ethereum, ethereum: { block } } = this.props;
 
     return (
       <ExperimentFrame>
@@ -163,12 +163,16 @@ class Experiment extends React.Component {
               <Col md={12}>
                 <Transactions transactions={transactions} />
                 {ethereum && ethereum.connected ?
-                  (<button className="btn btn-block btn-lg btn-inverse mt-3" onClick={() => this.claimTulip()}>
-                    Claim this tulip
-                  </button>) : (
-                    <div>
-                      Please connect to MetaMask to claim this tulip.
-                    </div>
+                  (<div>
+                    <button className="btn btn-block btn-lg btn-inverse mt-3" onClick={() => this.claimTulip()}>
+                      Claim this tulip
+                    </button>
+                    block #{block}
+                  </div>
+                ) : (
+                  <div>
+                    Please connect to MetaMask to claim this tulip.
+                  </div>
                 )}
                 { account }
               </Col>
