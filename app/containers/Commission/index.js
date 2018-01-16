@@ -20,6 +20,12 @@ const TulipFrame = styled.div`
   margin: 50px auto;
 `;
 
+const Message = styled.div`
+  font-size: 18px;
+  padding: 20px;
+`;
+
+
 class Commission extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
   constructor(props) {
@@ -142,7 +148,13 @@ class Commission extends React.Component { // eslint-disable-line react/prefer-s
 
           </Row>
           <Row>
-            <Transactions transactions={transactions} />
+            <Transactions transactions={transactions}>
+              <Message>
+                Congratulations! Wait for the arrival of your new painting over
+                at <a href={`/collection/${account}`}>your collection</a>.
+              </Message>
+            </Transactions>
+
             {ethereum && ethereum.connected ?
               foundation.genome && inspiration.genome && (
                 <button className="btn btn-block btn-lg btn-inverse mt-3" onClick={() => this.handleCommission()}>
