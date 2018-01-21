@@ -15,8 +15,8 @@ contract CryptoTulip is Destructible, Pausable, BasicNFT {
         paused = false;
     }
 
-    string public name = 'CryptoTulip';
-    string public symbol = 'TULIP';
+    string public name = "CryptoTulip";
+    string public symbol = "TULIP";
 
     uint32 internal constant MONTHLY_BLOCKS = 172800;
 
@@ -128,7 +128,8 @@ contract CryptoTulip is Destructible, Pausable, BasicNFT {
         // executing this, because it's based on the last block.
         // But that's ok. Other way of doing this involved 2 steps,
         // twice the cost, twice the trouble.
-        bytes32 rand = block.blockhash(block.number - 1);
+        bytes32 hash = keccak256(
+            block.blockhash(block.number - 1) ^ block.blockhash(block.number - 2) ^ bytes32(msg.sender));
 
         Tulip memory foundation = tulips[tulip.foundation];
         Tulip memory inspiration = tulips[tulip.inspiration];
@@ -136,18 +137,18 @@ contract CryptoTulip is Destructible, Pausable, BasicNFT {
         bytes32 genome = bytes32(0);
 
         for (uint8 i = 0; i < 32; i++) {
-            uint8 r = uint8(keccak256(rand[i]));
+            uint8 r = uint8(hash[i]);
+            uint8 gene;
 
-            if (r % 100 < 10) {
-              r = uint8(keccak256(rand[i]));
-              genome |= bytes32(uint8(foundation.genome[i]) - 8 + (r / 16)) >> (i * 8);
-            } else if (r % 100 < 95) {
-                genome |= bytes32(r % 100 < 75 ?
-                    foundation.genome[i] : inspiration.genome[i]) >> (i * 8);
+            if (r % 10 < 2) {
+               gene = uint8(foundation.genome[i]) - 8 + (r / 16);
+            } else if (r % 100 < 99) {
+               gene = uint8(r % 10 < 7 ? foundation.genome[i] : inspiration.genome[i]);
             } else {
-                r = uint8(keccak256(rand[i]));
-                genome |= bytes32(r) >> (i * 8);
+                gene = uint8(keccak256(r));
             }
+
+            genome = bytes32(gene) | (genome << 8);
         }
 
         tulips[_id].genome = genome;

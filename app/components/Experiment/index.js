@@ -99,9 +99,9 @@ class Experiment extends React.Component {
     const genes = new Uint8Array(GENOME_LENGTH);
     for (let i = 0; i < GENOME_LENGTH; i += 1) {
       const rand = Math.random();
-      if (rand < 0.95) {
-        genes[i] = rand < 0.75 ? foundation[i] : inspiration[i];
-        if (rand < 0.1) {
+      if (rand < 0.99) {
+        genes[i] = rand < 0.7 ? foundation[i] : inspiration[i];
+        if (rand < 0.2) {
           genes[i] += (Math.random() * 16) - 8;
         }
       } else {

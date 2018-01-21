@@ -99,6 +99,8 @@ class Tulip extends React.Component {
     const end = absPosition(genes[STEM_END]);
     const color = PALETTE[genes[STEM_COLOR]];
     draw.line(start[0], start[1], end[0], end[1])
+      .stroke({ width: LINE_WIDTH + 8, linecap: 'round', color: '#000' });
+    draw.line(start[0], start[1], end[0], end[1])
         .stroke({ width: LINE_WIDTH, linecap: 'round', color });
   }
 
