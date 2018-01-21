@@ -9,5 +9,4 @@ export const GAS_PRICE = '25000000000';
 
 export const CONTRACT_ADDRESS = '0x63cc86085347c8ea06dea85406e3c2ad5d632960';
 
-
 export const EXPLORER = 'https://rinkeby.etherscan.io/tx/';
