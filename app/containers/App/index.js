@@ -20,6 +20,7 @@ import MyCollection from '../MyCollection/index';
 import TulipPage from '../TulipPage/index';
 import Commission from '../Commission/index';
 import Browse from '../Browse/index';
+import Gift from '../Gift/index';
 
 export default function App() {
   return (
@@ -30,6 +31,7 @@ export default function App() {
         <Route exact path="/tulip/:id" component={TulipPage} />
         <Route exact path="/browse/:page?" component={Browse} />
         <Route exact path="/commission" component={Commission} />
+        <Route exact path="/gift" component={Gift} />
         <Route component={NotFoundPage} />
       </Switch>
     </div>

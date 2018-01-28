@@ -85,19 +85,16 @@ class Commission extends React.Component { // eslint-disable-line react/prefer-s
         <Grid>
           <Row>
             <Col md={4}>
-              You can commission a new abstract
-              painting from the CryptoTulip contract.
-              Select one of your tulips as your foundation.
-              Your new tulip will take most of its traits from
-              this parent. Second, select any tulip as inspiration,
-              which will give the remaining traits to your new
-              tulip. After commissioning, wait for the next block
-              to reveal the painting.
+              <p>You can commission a new abstract
+              painting from the CryptoTulip contract.</p>
             </Col>
           </Row>
           <Row>
             <Col md={4}>
               <h4>Foundation</h4>
+              <p>Select one of your tulips as your foundation.
+              Your new tulip will take most of its traits from
+              this parent.</p>
               {tulipIds ? (
                 <FormGroup>
                   <FormControl componentClass="select" defaultValue={0} placeholder="select" onChange={(e) => this.handleFoundation(e)} className="form-control select select-primary select-block mbl">
@@ -117,6 +114,9 @@ class Commission extends React.Component { // eslint-disable-line react/prefer-s
             </Col>
             <Col md={4}>
               <h4>Inspiration</h4>
+              <p>Select any tulip as inspiration,
+              which will give the remaining traits to your new
+              tulip.</p>
               <input
                 type="text"
                 name="inspiration"

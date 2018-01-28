@@ -15,13 +15,10 @@ const PALETTE = ['#ffffff', '#331700', '#295f99', '#ff7f00', '#ffff00', '#7f007f
 
 // constants
 const STEM_START = 0;
-const STEM_END = 1;
-const STEM_COLOR = 2;
-const BACK_COLOR = 3;
-const FRONT_COLOR = 4;
-const BACK_ORIGIN = 5;
-const FRONT_ORIGIN = 6;
-const SHAPES = 8;
+const STEM_COLOR = 1;
+const BACK_COLOR = 2;
+const FRONT_COLOR = 3;
+const SHAPES = 4;
 const ANGLE = 0;
 const RADIUS = 1;
 const LC = 2;
@@ -96,7 +93,7 @@ class Tulip extends React.Component {
 
   drawLine(draw, genes) {
     const start = absPosition(genes[STEM_START]);
-    const end = absPosition(genes[STEM_END]);
+    const end = absPosition(101);
     const color = PALETTE[genes[STEM_COLOR]];
     draw.line(start[0], start[1], end[0], end[1])
       .stroke({ width: LINE_WIDTH + 8, linecap: 'round', color: '#000' });
@@ -106,7 +103,8 @@ class Tulip extends React.Component {
 
   drawShape(draw, type, genes, curStart = SHAPES) {
     const color = PALETTE[genes[type === 'back' ? BACK_COLOR : FRONT_COLOR]];
-    const origin = absPosition(genes[type === 'back' ? BACK_ORIGIN : FRONT_ORIGIN]);
+    // const origin = absPosition(genes[type === 'back' ? BACK_ORIGIN : FRONT_ORIGIN]);
+    const origin = [0, 0];
 
     let cur = curStart;
     const path = draw.path()

@@ -14,7 +14,7 @@ import styled from 'styled-components';
 import Collection from 'components/Collection';
 import Transactions from 'components/Transactions';
 import PropTypes from 'prop-types';
-import { map, omit } from 'lodash';
+import { map, omit, assign } from 'lodash';
 import { withTulipArtist } from 'components/WithTulipArtist';
 import Navigation from 'components/Navigation';
 import InlineEdit from 'react-edit-inline';
@@ -65,7 +65,7 @@ class MyCollection extends React.Component { // eslint-disable-line react/prefer
         map(tokens, (t) => {
           tulipArtist.methods.getTulip(t).call(
             (err2, res2) => {
-              this.tulips[t] = omit(res2, '0', '1', '2', '3', '4');
+              this.tulips[t] = assign({}, { id: t }, omit(res2, '0', '1', '2', '3', '4'));
               tokensToGet -= 1;
               if (tokensToGet === 0) {
                 this.setState({ tulips: this.tulips });

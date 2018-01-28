@@ -56,20 +56,25 @@ class Browse extends React.Component { // eslint-disable-line react/prefer-state
   fetchTulips(props) {
     const { ethereum: { tulipArtist }, match: { params: { page } } } = props;
 
-    this.tulips = {};
-    const tokens = Array.from(Array(PAGE_SIZE).keys()).map((i) => 1 + i + ((page || 0) * PAGE_SIZE));
-    let tokensToGet = tokens.length;
+    tulipArtist.methods.totalTokens().call(
+      (err, res) => {
+        this.totalTokens = res;
 
-    map(tokens, (t) => {
-      tulipArtist.methods.getTulip(t).call(
-        (err2, res2) => {
-          this.tulips[t] = assign({}, { id: t }, omit(res2, '0', '1', '2', '3', '4'));
-          tokensToGet -= 1;
-          if (tokensToGet === 0) {
-            this.setState({ tulips: this.tulips });
-          }
+        this.tulips = {};
+        const tokens = Array.from(Array(PAGE_SIZE).keys()).map((i) => 1 + i + ((page || 0) * PAGE_SIZE));
+        let tokensToGet = tokens.length;
+
+        map(tokens, (t) => {
+          tulipArtist.methods.getTulip(t).call(
+            (err2, res2) => {
+              this.tulips[t] = assign({}, { id: t }, omit(res2, '0', '1', '2', '3', '4'));
+              tokensToGet -= 1;
+              if (tokensToGet === 0) {
+                this.setState({ tulips: this.tulips });
+              }
+            });
         });
-    });
+      });
   }
 
 
@@ -100,12 +105,13 @@ class Browse extends React.Component { // eslint-disable-line react/prefer-state
 
                 <CollectionFrame>
                   {map(sortBy(tulips, (t) => parseInt(t.id, 10)), (t, i) => (
-                    <TulipBox key={i}>
-                      <a href={`/tulip/${t.id}`} >
-                        <Tulip genome={t.genome} width={250} />
-                        <span>{t.id}</span>
-                      </a>
-                    </TulipBox>
+                    t.genome &&
+                      <TulipBox key={i}>
+                        <a href={`/tulip/${t.id}`} >
+                          <Tulip genome={t.genome} width={250} />
+                          <span>{t.id}</span>
+                        </a>
+                      </TulipBox>
                   ))}
                   {(!tulips || tulips.length === 0) &&
                     <h3>

@@ -58,16 +58,19 @@ class Experiment extends React.Component {
     super(props);
 
     const population = [
-      '2c756b5f8893b110005470a8c0a7c0799b8c714d542c21618f003fa900489e00',
-      'caa3439b66b98710b7a6cafdc6a53f8a2c82e54d603b2167b38369aafb489e0',
-      '7e76a9c8ca7542bb3b2887affff240c8fd005e62eff99b61b090fff000009a00',
+      '259461380775dfb1758a95f88ebad9a6ff71f6f490006ec68449ddb61f00e1ba',
+      '259a61260073dfb1758a90f8ffbad8a0ff71f6b08c006e958449ddbe1f0001ba',
+      'fb0c4438c250f2d8650fb84f8e4ce971cd59a9f46599c2c6d400ddb61d00e1eb',
+      'e347b05b2ba209d8ff00b84f8ec8be57cd59ff97116bf8a0504cddbe1f00ffba',
+      '2c81ac9600ae9100004970b7c3c8a2ebca6a925f3c003e7f4700bdcfd7ffffba',
+      '5d0030aa54b2f08d650f007b233fe9716356a8f76599c7c6cf00ddaf1d00e1eb',
     ];
 
     this.state = {
       account: null,
-      genome: '2c756b5f8893b110005470a8c0a7c0799b8c714d542c21618f003fa900489e00', // '0'.repeat(GENOME_LENGTH),
-      foundation: population[2],
-      inspiration: sample(population),
+      genome: population[0],
+      foundation: population[1],
+      inspiration: population[2],
       population,
       transactions: [],
     };

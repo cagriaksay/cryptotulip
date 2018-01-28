@@ -27,6 +27,7 @@ class Navigation extends React.PureComponent { // eslint-disable-line react/pref
             <NavItem className="inline" eventKey={1} href={`/collection/${account}`}>My Collection</NavItem>
             <NavItem className="inline" eventKey={2} href="/browse">Browse</NavItem>
             <NavItem className="inline" eventKey={3} href="/commission">Commission</NavItem>
+            <NavItem className="inline" eventKey={3} href="/gift">Gift</NavItem>
           </Nav>
           {blockNumber}
         </Navbar.Header>
