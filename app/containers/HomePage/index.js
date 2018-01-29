@@ -125,7 +125,7 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
                     https://metamask.io/</a>,
                     create a wallet and add funds if necessary.
                     <RedNote>
-                      IMPORTANT! Switch to Rinkeby network
+                      IMPORTANT! This is a test version. Switch to Rinkeby network
                       and <a href="https://faucet.rinkeby.io/" target="_blank">get test money here</a>.
                     </RedNote>
                     </li>

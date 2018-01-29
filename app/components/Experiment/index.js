@@ -59,9 +59,12 @@ class Experiment extends React.Component {
 
     const population = [
       '259461380775dfb1758a95f88ebad9a6ff71f6f490006ec68449ddb61f00e1ba',
-      '259a61260073dfb1758a90f8ffbad8a0ff71f6b08c006e958449ddbe1f0001ba',
+      '9fbec61b0055cab2788a90d9ff36b882a787c5a27f0059938449ddff25faffba',
+      '3dc1c2d08764aab299dca2aba4796c88795496bd9b4793b82f0099b36e52fcba',
       'fb0c4438c250f2d8650fb84f8e4ce971cd59a9f46599c2c6d400ddb61d00e1eb',
       'e347b05b2ba209d8ff00b84f8ec8be57cd59ff97116bf8a0504cddbe1f00ffba',
+      '259a61260073dfb1758a90f8ffbad8a0ff71f6b08c006e958449ddbe1f0001ba',
+      '0x7ea9c8ca0055caf2786cd1d9fd0000c3a200937a5eb5eed1ffffffffffffffff',
       '2c81ac9600ae9100004970b7c3c8a2ebca6a925f3c003e7f4700bdcfd7ffffba',
       '5d0030aa54b2f08d650f007b233fe9716356a8f76599c7c6cf00ddaf1d00e1eb',
     ];
