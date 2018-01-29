@@ -96,6 +96,7 @@ ul {
 
 .parent-tulip {
   cursor: pointer;
+  margin: 0px !important;
 }
 
 .inline {

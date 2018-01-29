@@ -6,7 +6,8 @@ export const GAS_PRICE = '25000000000';
 // export const CONTRACT_ADDRESS = '0x345ca3e014aaf5dca488057592ee47305d9b3e10';
 // export const CONTRACT_ADDRESS = '0x82d50ad3c1091866e258fd0f1a7cc9674609d254';
 // export const CONTRACT_ADDRESS = '0xf204a4ef082f5c04bb89f7d5e6568b796096735a';
+// export const CONTRACT_ADDRESS = '0x63cc86085347c8ea06dea85406e3c2ad5d632960';
 
-export const CONTRACT_ADDRESS = '0x63cc86085347c8ea06dea85406e3c2ad5d632960';
+export const CONTRACT_ADDRESS = '0xc529a23dc7070e9c59a5e89a9a0c3da2f14db792';
 
-export const EXPLORER = 'https://rinkeby.etherscan.io/tx/';
+export const EXPLORER = 'https://etherscan.io/tx/';

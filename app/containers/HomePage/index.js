@@ -125,8 +125,7 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
                     https://metamask.io/</a>,
                     create a wallet and add funds if necessary.
                     <RedNote>
-                      IMPORTANT! This is a test version. Switch to Rinkeby network
-                      and <a href="https://faucet.rinkeby.io/" target="_blank">get test money here</a>.
+                      Make sure you are on the main Ethereum network.
                     </RedNote>
                     </li>
                     <li><b>How long should I wait after sending a transaction?</b><br />
