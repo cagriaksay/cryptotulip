@@ -10,6 +10,7 @@ import { withTulipArtist } from 'components/WithTulipArtist';
 import Navigation from 'components/Navigation';
 
 /* eslint-disable jsx-a11y/accessible-emoji */
+/* eslint-disable no-irregular-whitespace */
 
 const Header = styled.h1`
   margin-top: 20px;
@@ -39,6 +40,10 @@ const Faq = styled.div`
   font-size: 16px;
 `;
 
+const RedNote = styled.div`
+  color: red;
+`;
+
 class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
     const { ethereum, ethereum: { account } } = this.props;
@@ -61,8 +66,11 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
                 CryptoTulip &mdash; digital art on the blockchain.
                 </Header>
                 <List>
-                  <li>🎨 CryptoTulip is a smart contract that paints minimalist abstracts called <b>tulips</b>. </li>
-                  <li>🌷 <b>Tulips</b> are collectable and genetically breedable.</li>
+                  <li>🌷 <b>Tulips</b> are
+                    minimalist digital abstract paintings.
+                  </li>
+                  <li>🎟️️ They are collectable and genetically breedable ERC721 tokens.</li>
+                  <li>🎨 CryptoTulip is a smart contract that paints <b>tulips</b> on the blockchain. </li>
                 </List>
               </Row>
             </Col>
@@ -82,66 +90,97 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
 
               <Row>
                 <Header>
-                  Creative process:
+                  Creative process
                 </Header>
                 <List>
-                  <li><Num>1</Num> Commission a tulip from the CryptoTulip contract.</li>
-                  <li><Num>2</Num> Provide one of your own as foundation, another tulip for inspiration. </li>
-                  <li><Num>3</Num> CryptoTulip will combine their genes and reveal your unique tulip.</li>
+                  <li><Num>1</Num>
+                    During the first month only, you can create a new tulip of your design; by using the
+                    sample painting process and gene controls above.
+                  </li>
+                  <li><Num>2</Num>
+                    You can also commission a tulip from the CryptoTulip contract. The contract will mix the traits of
+                    the tulips you provide and create a brand new and unique tulip.
+                  </li>
+                  <li><Num>3</Num>
+                    Visit your collection. Title your paintings. Funny titles preffered.
+                  </li>
+                  <li><Num>4</Num>
+                    Gift a tulip to another and introduce them to the world of CryptoTulip.
+                  </li>
                 </List>
               </Row>
-              <Vert />
-              <Vert />
               <Vert />
               <Vert />
 
               <Row>
                 <Vert />
                 <Header>
-                  FAQ
+                  Questions & Answers
                 </Header>
                 <List>
                   <Faq>
                     <a name="FAQ"> </a>
-                    <li><b>How do I start?</b><br />
-                      <il>
-                        <ul>1- Install Metamask <a href="https://metamask.io/" target="_black">https://metamask.io/</a> and create a wallet.</ul>
-                        <ul>2- Switch to Rinkeby network [IMPORTANT]</ul>
-                        <ul>3- Visit <a href="https://faucet.rinkeby.io/" target="_blank">https://faucet.rinkeby.io/</a> and follow instructions on
-                        the page to get some test money for your account: publicly post your address on one of the social networks (e.g. google+)
-                        and copy the post link here.</ul>
-                        <ul>4- Check your Metamask wallet. If you see a balance, you are ready to play.</ul>
-                        <ul>5- Please note that your every action will take affect after your transaction is approved (usually 15 seconds to a minute).
-                         Sometimes you need to refresh the page a few times.</ul>
-                        <ul>6- Send me your feedback! This is an early alpha and nothing is polished. Imagine the UX was smoother.</ul>
-                      </il>
+                    <li><b>What do I need to start?</b><br />
+                    You need to install Metamask <a href="https://metamask.io/" target="_blank">
+                    https://metamask.io/</a>,
+                    create a wallet and add funds if necessary.
+                    <RedNote>
+                      IMPORTANT! Switch to Rinkeby network
+                      and <a href="https://faucet.rinkeby.io/" target="_blank">get test money here</a>.
+                    </RedNote>
+                    </li>
+                    <li><b>How long should I wait after sending a transaction?</b><br />
+                    Transactions can take as little as 15 seconds to several minutes depending
+                    on the network status.
                     </li>
                     <li><b>Why don&apos;t these tulips look anything like tulips?</b><br />
                     CryptoTulip is a minimalist deconstructionist. Its work will be abstract and unique.</li>
-                    <li><b>Why is this  &ldquo;art&rdquo;  ugly?</b><br />
-                    CryptoTulip can make a great number of unique paintings. We&apos;re optimistic one or two will look great!</li>
+                    <li><b>Why is this &ldquo;art&rdquo; ugly?</b><br />
+                    CryptoTulip can make a great number of unique paintings. I&apos;m optimistic one or
+                    two will look great!</li>
                     <li><b>How do I own a tulip artwork?</b><br />
-                    Tulips are ERC721 tokens. Your ownership is recorded on Ethereum.
-                    All the information about your tulip is stored on the blockchain.</li>
-                    <li><b>How do I buy a tulip?</b><br />
+                    Tulips are ERC721 tokens. Your ownership is recorded on the main Ethereum network.
+                    All the information about your tulip is stored on the blockchain. This site doesn&apos;t
+                    have a database!</li>
+                    <li><b>What do you mean &ldquo;no database&rdquo;?</b><br />
+                    Tulips consist of
+                    a foundation tulip reference,
+                    an inspiration tulip reference,
+                    a block number representing when they were painted,
+                    and a 256-byte array representing their shapes & colors.
+                    All of this data is stored on the main Ethereum network.
+                    <br /><br />
+                    This site is a simple frontend application, and the only backend is the main Ethereum
+                    network, accessed through your Metamask wallet.
+                    <br /><br />
+                    All CryptoTulip code, including the smart contracts and this site, is available
+                    at <a href="https://github.com/cagriaksay/cryptotulip" target="_blank">
+                    https://github.com/cagriaksay/cryptotulip</a> with an MIT License.
+                    </li>
+                    <li><b>How do I acquire a tulip?</b><br />
                     During the first month, you can design a tulip and claim it for yourself.
-                    After that, all new tulips must be painted by CryptoTulip.
+                    After that, all new tulips must be painted by CryptoTulip via commissions.
+                    </li>
+                    <li><b>Are the tulip traits combined randomly?</b><br />
+                    No. The traits of the offspring depend on the foundation, inspiration and the
+                    previous blockhashes.
+                    Therefore, it&apos;s possible to predict how a painting will look given the
+                    block it will be painted. This is perfectly fine.
                     </li>
                     <li><b>How much does it cost?</b><br />
-                    Artist&apos;s commission is 1 finney right now (one thousanth of ETH). Other operations cost only gas.&nbsp;
+                    Artist&apos;s commission is 1 finney right now (one thousanth of ETH). Other
+                    operations cost only gas.&nbsp;
                     <b>Please keep in mind that this is for fun and tulips are worthless.</b>
                     </li>
-                    <li><b>Can we undo anything at all?</b><br />
-                    Unfortunately no! It&apos;s important to note that all interactions with CryptoTulip are final.
+                    <li><b>Can we undo anything?</b><br />
+                    Unfortunately no! It&apos;s important to note that all interactions with
+                    CryptoTulip are final.
                     There&apos;s no way to roll back your actions. Please be careful.
                     </li>
                   </Faq>
                 </List>
 
                 <Vert />
-                <Vert />
-                <Vert />
-
               </Row>
             </Col>
           </Row>

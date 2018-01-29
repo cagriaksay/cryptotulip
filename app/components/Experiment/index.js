@@ -163,9 +163,9 @@ class Experiment extends React.Component {
                 <Tulip genome={inspiration} width={200} className="float-right parent-tulip" />
               </Col>
               <Col md={12} className="text-center">
-                <button className="btn btn-primary mt-3" onClick={() => this.paintNewTulip()}>
+                <button className="btn btn-block btn-primary mt-3" onClick={() => this.paintNewTulip()}>
                   <span className="fui-triangle-down mr-3" />
-                  Paint new sample
+                  Paint a new sample tulip
                   <span className="fui-triangle-down ml-3" />
                 </button>
               </Col>
