@@ -103,7 +103,6 @@ class Tulip extends React.Component {
 
   drawShape(draw, type, genes, curStart = SHAPES) {
     const color = PALETTE[genes[type === 'back' ? BACK_COLOR : FRONT_COLOR]];
-    // const origin = absPosition(genes[type === 'back' ? BACK_ORIGIN : FRONT_ORIGIN]);
     const origin = [0, 0];
 
     let cur = curStart;

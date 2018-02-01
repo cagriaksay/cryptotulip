@@ -27,6 +27,9 @@ const Header = styled.h1`
   width: 100%;
 `;
 
+const Warning = styled.div`
+  margin-top: 50px;
+`;
 
 class MyCollection extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
@@ -91,6 +94,7 @@ class MyCollection extends React.Component { // eslint-disable-line react/prefer
 
   render() {
     const { account, username, transactions, tulips } = this.state;
+    const { ethereum } = this.props;
 
     return (
       <div>
@@ -116,6 +120,12 @@ class MyCollection extends React.Component { // eslint-disable-line react/prefer
                 </Header>
                 <Collection tulips={tulips} />
               </Row>
+              {(!ethereum || !ethereum.connected) &&
+                <Warning>
+                  Please connect to <a href="https://metamask.io/" target="_blank">
+                  MetaMask</a> to see this collection.
+                </Warning>
+              }
             </Col>
           </Row>
 

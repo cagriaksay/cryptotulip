@@ -52,6 +52,10 @@ const TinyPrint = styled.div`
 const ExperimentFrame = styled.div`
 `;
 
+const Warning = styled.div`
+  margin-top: 20px;
+`;
+
 class Experiment extends React.Component {
 
   constructor(props) {
@@ -192,9 +196,10 @@ class Experiment extends React.Component {
                     </button>
                   </div>
                 ) : (
-                  <div>
-                    Please connect to MetaMask to claim this tulip.
-                  </div>
+                  <Warning>
+                    Please connect to <a href="https://metamask.io/" target="_blank">
+                    MetaMask</a> to claim this tulip.
+                  </Warning>
                 )}
                 <TinyPrint>
                   { account } - block #{block}

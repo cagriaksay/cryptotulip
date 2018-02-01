@@ -161,7 +161,8 @@ class Commission extends React.Component { // eslint-disable-line react/prefer-s
                 Commission a tulip
               </button>) : (
                 <div>
-                  Please connect to MetaMask to commission a tulip.
+                  Please connect to <a href="https://metamask.io/" target="_blank">
+                  MetaMask</a> to commission a tulip.
                 </div>
             )}
           </Row>

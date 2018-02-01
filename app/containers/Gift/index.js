@@ -138,7 +138,8 @@ class Gift extends React.Component { // eslint-disable-line react/prefer-statele
                   Gift this tulip
                 </button>) : (
                   <div>
-                    Please connect to MetaMask to gift a tulip.
+                    Please connect to <a href="https://metamask.io/" target="_blank">
+                    MetaMask</a> to gift a tulip.
                   </div>
               )}
             </Col>

@@ -176,6 +176,16 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
                     CryptoTulip are final.
                     There&apos;s no way to roll back your actions. Please be careful.
                     </li>
+                    <li><b>Who built this and why?</b><br />
+                    I&apos;m <a href="https://twitter.com/cagriaksay" target="_blank">@cagriaksay</a>.
+                    CryptoTulip is a side project I started just to learn about developing smart contracts.
+                    It was a lot of fun to build and I wanted to share it as a sample project for anyone interested.
+                    I ended up deploying it on the network and&nbsp;
+                    <a href="https://github.com/cagriaksay/cryptotulip" target="_blank">
+                    open sourcing
+                    </a> the project.
+
+                    </li>
                   </Faq>
                 </List>
 

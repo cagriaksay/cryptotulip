@@ -25,7 +25,7 @@ const CollectionFrame = styled.div`
 class Collection extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
   render() {
-    const { ethereum: { tulips: myTulips }, tulips: propTulips } = this.props;
+    const { ethereum, ethereum: { tulips: myTulips }, tulips: propTulips } = this.props;
     const tulips = propTulips || myTulips;
 
     return (
@@ -38,7 +38,7 @@ class Collection extends React.Component { // eslint-disable-line react/prefer-s
             </a>
           </TulipBox>
         ))}
-        {(!tulips || tulips.length === 0) &&
+        {(!tulips || tulips.length === 0) && (ethereum && ethereum.connected) &&
           <h3>
             no tulips here.
           </h3>

@@ -80,7 +80,10 @@ class Browse extends React.Component { // eslint-disable-line react/prefer-state
 
   render() {
     const { account, tulips } = this.state;
+    const { ethereum } = this.props;
     const page = parseInt(this.props.match.params.page, 10) || 0;
+    const connected = ethereum && ethereum.connected;
+
     return (
       <div>
         <Navigation account={account} />
@@ -113,13 +116,19 @@ class Browse extends React.Component { // eslint-disable-line react/prefer-state
                         </a>
                       </TulipBox>
                   ))}
-                  {(!tulips || tulips.length === 0) &&
+                  {(!tulips || tulips.length === 0) && connected &&
                     <h3>
                       no tulips here.
                     </h3>
                   }
                 </CollectionFrame>
               </Row>
+              {!connected &&
+                <div>
+                  Please connect to <a href="https://metamask.io/" target="_blank">
+                  MetaMask</a> to browse tulips.
+                </div>
+              }
             </Col>
           </Row>
 
@@ -131,6 +140,7 @@ class Browse extends React.Component { // eslint-disable-line react/prefer-state
 
 Browse.propTypes = {
   match: PropTypes.object.isRequired,
+  ethereum: PropTypes.object.isRequired,
 };
 
 
