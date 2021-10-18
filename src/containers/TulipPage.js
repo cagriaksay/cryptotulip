@@ -94,9 +94,9 @@ export default function TulipPage({id}) {
           }).catch();
         }
 
-        tulipArtist.tokenMetadata(id).then((res2) => {
+        tulipArtist.names(id).then((res2) => {
           setTitle(res2);
-        }).catch(() => setLoading(false));
+        }).catch();
       }).catch(() => setLoading(false));    
     }
           
@@ -137,7 +137,7 @@ export default function TulipPage({id}) {
           <Grid>
             <Grid>
               <TulipFrame>
-                <Tulip genome={tulip.genome} width={600} id={''+tulip.id} onReveal={(revealId) => this.handleReveal(revealId)} />
+                <Tulip genome={tulip.genome} width={600} id={''+tulip.id} />
                 <div onClick={handleName}>
                   #
                   {id}

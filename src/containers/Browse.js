@@ -21,7 +21,6 @@ import { ABI } from '../abi';
 const Header = styled('h1')`
   margin-top: 20px;
   margin-bottom: 0px;
-  font-family: 'Lora';
   font-size: 25px;
   width: 100%;
 `;
@@ -45,7 +44,7 @@ const Content = styled('div')`
   margin: 32px;
 `;
 
-const PAGE_SIZE = 20;
+const PAGE_SIZE = 10;
 
 export default function Browse({startPage}) {
   
@@ -69,11 +68,10 @@ export default function Browse({startPage}) {
     if (!tulipArtist) {
       return;
     }
-    tulipArtist.totalTokens().then((res) => {
+    tulipArtist.totalSupply().then((res) => {
       const num = res.toNumber();
       setNumTulips(num);
-    }).catch(() => setLoading(false));;
-    return;
+    }).catch(() => setLoading(false));
   }, [tulipArtist]);
   
   useEffect(() => {
@@ -81,7 +79,7 @@ export default function Browse({startPage}) {
       return;
     }
     var tulips = {};
-    const pageStart = ((page || 0) * PAGE_SIZE) + 1;
+    const pageStart = ((page || 0) * PAGE_SIZE);
     var pageEnd = Math.min(numTulips, pageStart + PAGE_SIZE);
     if (pageEnd < pageStart) {
       setLoading(false);
@@ -91,7 +89,7 @@ export default function Browse({startPage}) {
       pageEnd = numTulips;
     }
 
-    const tokens = Array.from(Array(pageEnd - pageStart).keys()).map((i) => ((page || 0) * PAGE_SIZE) + 1 + i);
+    const tokens = Array.from(Array(pageEnd - pageStart).keys()).map((i) => ((page || 0) * PAGE_SIZE) + i);
     let tokensToGet = tokens.length;
     map(tokens, (t) => {
       tulipArtist.getTulip(t).then(
@@ -134,7 +132,7 @@ export default function Browse({startPage}) {
               <Grid item md={12}>
                 <Grid>
                   <Header>
-                    Tulips {1 + (page * PAGE_SIZE)} to {Math.min((page + 1) * PAGE_SIZE, numTulips-1)}
+                    Tulips {(page * PAGE_SIZE)} to {Math.min((page + 1) * PAGE_SIZE, numTulips-1)}
                     <Arrows>
                       {page > 0 &&
                         <Button onClick={()=> onPageDown()}><KeyboardArrowLeftIcon /></Button>

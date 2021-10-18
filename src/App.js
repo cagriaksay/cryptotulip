@@ -26,7 +26,7 @@ export default function App() {
         <Router history={history}>
           <Switch>
             <Route exact path="/" component={Homepage} />
-            <Route exact path="/collection/:account" component={({match}) => <MyCollection account={match.params.account | null} />}  />
+            <Route exact path="/collection/:account?" component={({match}) => <MyCollection account={match.params.account || null} />}  />
             <Route exact path="/browse/:page?" component={({match}) => <Browse startPage={parseInt(match.params.page, 10) || 0} />} />
             <Route exact path="/tulip/:id" component={({match}) => <TulipPage id={match.params.id | ""} />}  />
             <Route exact path="/commission" component={Commission} />

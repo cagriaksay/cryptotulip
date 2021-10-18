@@ -8,7 +8,6 @@ import React from 'react';
 import styled from '@emotion/styled';
 
 const Pipe = styled('h3')`
-  font-family: 'Courgette', cursive;
   text-align: center;
   font-size: 14px;
   margin-top: 0px;

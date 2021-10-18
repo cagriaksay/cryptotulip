@@ -8,6 +8,16 @@ export const GAS_PRICE = '2000000000';
 // export const CONTRACT_ADDRESS = '0xf204a4ef082f5c04bb89f7d5e6568b796096735a';
 // export const CONTRACT_ADDRESS = '0x63cc86085347c8ea06dea85406e3c2ad5d632960';
 
-export const CONTRACT_ADDRESS = '0x2c06e48f6e655bcfc7e46586784fb6da82c4ca3d';
+// export const CONTRACT_ADDRESS = '0x2c06e48f6e655bcfc7e46586784fb6da82c4ca3d'; // V1
+
+// export const CONTRACT_ADDRESS = '0x7d9b20061B0130B7121Abfb1B83d5e7837b0E30E'; // rinkeby
+
+export const CONTRACT_ADDRESS = '0x49561BfEB24BDbeAFe4C8037F693Df1B35393F15'; // mainnet
+
+
+
+export const CHAIN_ID = 1; // rinkeby
 
 export const EXPLORER = 'https://etherscan.io/tx/';
+
+export const ORIGINAL_ARTWORK_LIMIT = 100;

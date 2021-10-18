@@ -9,12 +9,10 @@ import { omit, assign } from 'lodash';
 import Tulip from '../components/Tulip';
 import styled from '@emotion/styled';
 import Navigation from '../components/Navigation';
-import { GAS_PRICE } from '../components/constants';
 import { useInjectConnect, useInfuraConnect, useInactiveListener } from '../hooks';
 import { useWeb3React } from '@web3-react/core';
-import { map } from 'lodash';
 import {Grid, Button, Typography, Select, MenuItem, TextField} from '@mui/material';
-import { CONTRACT_ADDRESS } from '../constants';
+import { CONTRACT_ADDRESS, EXPLORER } from '../constants';
 import { ethers } from 'ethers';
 import { ABI } from '../abi';
 import { injected } from '../connectors'
@@ -38,7 +36,9 @@ export default function Commission() {
 
   const { active, library, account, activate } = useWeb3React()  
   const [foundation, setFoundation] = useState();
+  const [foundationName, setFoundationName] = useState();
   const [inspiration, setInspiration] = useState();
+  const [inspirationName, setInspirationName] = useState();  
   const [tulipArtist, setTulipArtist] = useState();
   const [tulipIDs, setTulipIDs] = useState([]);
   const [numTulips, setNumTulips] = useState(0);
@@ -55,7 +55,7 @@ export default function Commission() {
       return;
     }
 
-    tulipArtist.totalTokens().then((res) => {
+    tulipArtist.totalSupply().then((res) => {
       const num = res.toNumber();
       setNumTulips(num);
     }).catch();
@@ -64,31 +64,46 @@ export default function Commission() {
       return;
     }
 
-    tulipArtist.getAllTokens(account).then((res) =>{
-      const tulipIDs = map(res, (t) => t.toNumber());
-      setTulipIDs(tulipIDs);
-      if (tulipIDs.length > 0) {
-        handleFoundation({target: {value: tulipIDs[0]}})
-      }
+    tulipArtist.balanceOf(account).then((res) =>{
+      const numTulips = res.toNumber();
+      let tulipIDs = [];
+      for (var i=0; i< numTulips; i++) {
+        tulipArtist.tokenOfOwnerByIndex(account, i).then(res => {
+          tulipIDs.push(res.toNumber());
+          if (tulipIDs.length === numTulips) {
+            tulipIDs.sort((a,b) => {return parseInt(a) - parseInt(b)});
+            setTulipIDs(tulipIDs);
+            handleFoundation({target: {value: tulipIDs[0]}});
+          }
+        });
+      }      
     });
   }, [tulipArtist, account])
 
 
   function handleFoundation(e) {
     const id = e.target.value;
+    setFoundationName("");
     tulipArtist.getTulip(id).then((res) => {
         setFoundation(assign({}, omit(res, '0', '1', '2', '3', '4'), { id }));
       }).catch(() => alert('Tulip not found'));
+    tulipArtist.names(id).then((res) => {
+        setFoundationName(res);
+      }).catch();
   }
 
   function handleInspiration(e) {
     const id = e.target.value;
     const intID = parseInt(id, 10);
-    if (!id || intID < 1 || intID >= numTulips) {
+    if (!id || intID < 0 || intID >= numTulips) {
       return;
     }
+    setInspirationName("");
     tulipArtist.getTulip(id).then((res) => {
         setInspiration(assign({}, omit(res, '0', '1', '2', '3', '4'), { id }));
+      }).catch();
+      tulipArtist.names(id).then((res) => {
+        setInspirationName(res);
       }).catch();
   }
 
@@ -99,10 +114,11 @@ export default function Commission() {
 
     const signer = tulipArtist.connect(library.getSigner())
     signer.commissionArt(foundation.id, inspiration.id, {
-        gasLimit: 216000,
-        gasPrice: GAS_PRICE,
+        gasLimit: 225000,
         value: ethers.utils.parseEther('0.001'),
         from: account,
+      }).then((res) => {
+        window.location = EXPLORER + res.hash;
       });
   }
 
@@ -140,7 +156,7 @@ export default function Commission() {
                 <TulipFrame>
                   <Tulip genome={foundation.genome} width={300} />
                   #
-                  {foundation.id}
+                  {foundation.id} {foundationName}
                 </TulipFrame>
               }
             </Grid>
@@ -150,13 +166,16 @@ export default function Commission() {
               <TextField
                 onChange={handleInspiration}
                 placeholder="Type tulip id here"
+                type="number"
+                InputProps={{ inputProps: { min: 0, max: numTulips-1 } }}
+                style = {{width: 200}}
               />
 
               {inspiration && inspiration.genome &&
                 <TulipFrame>
                   <Tulip genome={inspiration.genome} width={300} />
                   #
-                  {inspiration.id}
+                  {inspiration.id} {inspirationName}
                 </TulipFrame>
               }
             </Grid>

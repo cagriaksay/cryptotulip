@@ -10,7 +10,7 @@ import Tulip, { stringToGenes, genesToString } from './Tulip';
 import { crossBreed } from '../util';
 
 const Pipe = styled('h3')`
-  font-family: 'Courgette', cursive;
+  font-family: cursive;
   text-align: center;
   font-size: 14px;
   margin-top: 0px;
@@ -42,7 +42,7 @@ export default function MovingLogo() {
   return (
     <div>
       <Frame>
-        <Tulip genome={genome} width={300} />
+        <Tulip genome={genome} width={200} />
         <Pipe>
           ceci n&apos;est pas une tulipe
         </Pipe>

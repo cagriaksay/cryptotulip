@@ -1,3 +1,4 @@
+/* eslint-disable no-loop-func */
 /**
  *
  * MyCollection
@@ -9,7 +10,7 @@ import styled from '@emotion/styled';
 import {Grid, Button, Typography} from '@mui/material';
 
 import Collection from '../components/Collection';
-import { map, omit, assign } from 'lodash';
+import { omit, assign } from 'lodash';
 import Navigation from '../components/Navigation';
 import { useWeb3React } from '@web3-react/core';
 import { ethers } from 'ethers';
@@ -24,7 +25,6 @@ import { CONTRACT_ADDRESS } from '../constants';
 const Header = styled('h1')`
   margin-top: 20px;
   margin-bottom: 0px;
-  font-family: 'Lora';
   font-size: 25px;
   width: 100%;
 `;
@@ -43,11 +43,10 @@ export default function MyCollection(params) {
   const [tulipArtist, setTulipArtist] = useState();
 
   const { library, account, active, activate } = useWeb3React()
-  var id = params.account
-  if (!id) {
+  var id = params.account;
+  if (!ethers.utils.isAddress(id)) {
     id = account;
   }
-
 
   useEffect(() => {
     if (!active || !!tulipArtist) {
@@ -67,21 +66,20 @@ export default function MyCollection(params) {
       setUsername(res);
     });
 
-    tulipArtist.getAllTokens(id).then((res) =>{
-      const tulipIDs = res
-      let tokensToGet = tulipIDs.length;
-      let tulips = []
-      map(tulipIDs, (t) => {
-        tulipArtist.getTulip(t.toNumber()).then(
-          (res2) => {
-            tulips.push(assign({}, { id: ""+t.toNumber() }, omit(res2, '0', '1', '2', '3', '4')));
-            tokensToGet -= 1;
-            if (tokensToGet === 0) {
-              setTulips(tulips)
-            }
+    tulipArtist.balanceOf(id).then((res) =>{
+      const numTulips = res.toNumber();
+      var loaded = []
+      for (var i=0; i< numTulips; i++) {
+        tulipArtist.tokenOfOwnerByIndex(id, i).then(res => {
+          tulipArtist.getTulip(res.toNumber()).then((res2) => {
+            loaded = loaded.concat(assign({}, { id: ""+res.toNumber() }, omit(res2, '0', '1', '2', '3', '4')));
+            loaded.sort((a,b) => {return parseInt(a.id) - parseInt(b.id)});
+            setTulips(loaded);
           });
-      });
+        });
+      }      
     });
+
   }, [tulipArtist, id]);
   
   function onConnect() {
@@ -89,6 +87,9 @@ export default function MyCollection(params) {
   }
   
   function handleCollectionName() {
+    if (id !== account) {
+      return;
+    }
     const username = prompt("Title your collection: ");
     
     if (username) {

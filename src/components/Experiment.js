@@ -4,17 +4,26 @@
 *
 */
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Tulip, { stringToGenes, genesToString } from './Tulip';
 import styled from '@emotion/styled';
 import { sample } from 'underscore';
-import {Grid, Button, Slider} from '@mui/material';
+import {Grid, Button, Slider, Typography, Box} from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { crossBreed } from '../util';
 
+import { useWeb3React } from '@web3-react/core';
+import { CONTRACT_ADDRESS, ORIGINAL_ARTWORK_LIMIT, EXPLORER } from '../constants';
+import { ethers } from 'ethers';
+import { ABI } from '../abi';
+
+import { useInjectConnect, useInactiveListener } from '../hooks';
+import { injected } from '../connectors'
+import { alertError } from '../util';
+
+
 const Title = styled('div')`
-  font-family: 'Courgette';
 `;
 
 const Controls = styled('div')`
@@ -59,10 +68,50 @@ const population = [
 ];
 
 export default function Experiment() {
-
-  const [genome, setGenome] = useState( population[0]);
+  const [genome, setGenome] = useState(population[0]);
   const [foundation, setFoundation] = useState(population[1]);
   const [inspiration, setInspiration] = useState(population[2]);
+
+  useInjectConnect();
+  useInactiveListener();
+  const { account, active, library, activate } = useWeb3React()  
+  const [numTulips, setNumTulips] = useState(0);
+  const [tulipArtist, setTulipArtist] = useState();
+  useEffect(() => {
+    if (!active) {
+      return;
+    }
+    setTulipArtist(new ethers.Contract(CONTRACT_ADDRESS, ABI, library))
+  }, [library, active]);
+
+  useEffect(()=>{
+    if (!tulipArtist) {
+      return;
+    }
+    tulipArtist.totalSupply().then((res) => {
+      const num = res.toNumber();
+      setNumTulips(num);
+    }).catch();
+  }, [tulipArtist]);
+
+  function onConnect() {
+    activate(injected, alertError, true).catch((reason) => alertError(reason));
+  }
+
+  function handleOriginalArtwork() {
+    if (!active || !account) {
+      onConnect();
+      return;
+    }
+    const signer = tulipArtist.connect(library.getSigner())
+    signer.originalArtwork(`0x${genome}`, {
+        gasLimit: 225000,
+        value: ethers.utils.parseEther('0.001'),
+        from: account,
+      }).then((res) => {
+        window.location = EXPLORER + res.hash;
+      });
+  }  
 
   function onSliderChanged(index, value) {
     const genes = stringToGenes(genome);
@@ -109,12 +158,22 @@ export default function Experiment() {
           <Grid item md={12} className="text-center">
             <PaintButton variant="contained" fullWidth onClick={paintNewTulip}>
               <KeyboardArrowDownIcon />
-                Paint a new sample tulip
+                Paint tulip
               <KeyboardArrowDownIcon />
             </PaintButton>
           </Grid>
           <Grid item md={12}>
             <Tulip genome={genome} width={440} />
+            {numTulips < ORIGINAL_ARTWORK_LIMIT && (
+              <Box padding={2}>
+              <Button variant="contained" fullWidth onClick={handleOriginalArtwork}>
+                Claim This First Generation Painting
+              </Button>
+              <Typography align="center" variant="subtitle2">
+                only {ORIGINAL_ARTWORK_LIMIT-numTulips} original paintings left
+              </Typography>
+              </Box>
+            )}
           </Grid>
         </Grid>
         <Grid item md={3}>

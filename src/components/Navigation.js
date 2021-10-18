@@ -6,7 +6,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Button, Grid} from '@mui/material';
+import {Button, Grid, Typography} from '@mui/material';
 import styled from '@emotion/styled';
 import { useWeb3React } from '@web3-react/core';
 
@@ -15,11 +15,17 @@ const Logotype = styled('a')`
   font-weight: bold;
   text-decoration: none;
   color: black;
+  font-size: 26px;
+`;
+
+const Account = styled(Typography)`
+  float: right;
+  padding-right: 8px;
 `;
 
 export default function Navigation() { 
 
-  const { account  } = useWeb3React()
+  const { account } = useWeb3React()
 
   return (
     <Grid>
@@ -28,7 +34,9 @@ export default function Navigation() {
       <Button className="inline" href="/browse">Browse</Button>
       <Button className="inline" href="/commission">Commission</Button>
       <Button className="inline" href="/gift">Gift</Button>
-      {account}
+      <Account color="InfoText" variant="body1" fontFamily="monospace" component="span">
+        {account}
+      </Account>
     </Grid>
   );
 }

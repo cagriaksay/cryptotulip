@@ -13,7 +13,7 @@ import styled from '@emotion/styled';
 import { useInjectConnect, useInfuraConnect, useInactiveListener } from '../hooks';
 import { useWeb3React } from '@web3-react/core';
 import {Grid, Button, Typography, Select, MenuItem, TextField} from '@mui/material';
-import { CONTRACT_ADDRESS } from '../constants';
+import { CONTRACT_ADDRESS, EXPLORER} from '../constants';
 import { ethers } from 'ethers';
 import { ABI } from '../abi';
 import { injected } from '../connectors'
@@ -57,14 +57,29 @@ export default function Gift() {
       if (!tulipArtist || !account) {
         return;
       }
-  
-      tulipArtist.getAllTokens(account).then((res) =>{
-        const tulipIDs = map(res, (t) => t.toNumber());
-        setTulipIDs(tulipIDs);
-        if (tulipIDs.length > 0) {
-          handleFoundation({target: {value: tulipIDs[0]}})
-        }
+
+      tulipArtist.balanceOf(account).then((res) =>{
+        const numTulips = res.toNumber();
+        let tulipIDs = [];
+        for (var i=0; i< numTulips; i++) {
+          tulipArtist.tokenOfOwnerByIndex(account, i).then(res => {
+            tulipIDs.push(res.toNumber());
+            if (tulipIDs.length === numTulips) {
+              tulipIDs.sort()
+              setTulipIDs(tulipIDs);
+              handleFoundation({target: {value: tulipIDs[0]}});
+            }
+          });
+        }      
       });
+  
+      // tulipArtist.getAllTokens(account).then((res) =>{
+      //   const tulipIDs = map(res, (t) => t.toNumber());
+      //   setTulipIDs(tulipIDs);
+      //   if (tulipIDs.length > 0) {
+      //     handleFoundation({target: {value: tulipIDs[0]}})
+      //   }
+      // });
     }, [tulipArtist, account])
   
   
@@ -82,10 +97,12 @@ export default function Gift() {
       }
   
       const signer = tulipArtist.connect(library.getSigner())
-      signer.transfer(destinationAccount, foundation.id, {
+      signer.transferFrom(account, destinationAccount, foundation.id, {
           gasLimit: 125000,
           gasPrice: GAS_PRICE,
           from: account,
+        }).then((res) => {
+          window.location = EXPLORER + res.hash;
         });
     }
   

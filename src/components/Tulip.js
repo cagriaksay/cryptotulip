@@ -164,18 +164,10 @@ class Tulip extends React.Component {
   }
 
   render() {
-    const { width, genome, onReveal, id } = this.props;
-    const reveal = genome === '0x0000000000000000000000000000000000000000000000000000000000000000';
-
+    const { width } = this.props;
     return (
       <TulipFrame width={width} className={this.props.className}>
-        {reveal ? (
-          <Button width={width} className="btn btn-block btn-secondary reveal-button" onClick={() => onReveal(id)}>
-            Reveal
-          </Button>
-        ) : (
-          <div ref={(ref) => this.drawTulip(ref)}></div>
-        )}
+        <div ref={(ref) => this.drawTulip(ref)}></div>
       </TulipFrame>
     );
   }
@@ -185,7 +177,6 @@ Tulip.propTypes = {
   width: PropTypes.number.isRequired,
   genome: PropTypes.string.isRequired,
   className: PropTypes.string,
-  onReveal: PropTypes.func,
   id: PropTypes.string,
 };
 
