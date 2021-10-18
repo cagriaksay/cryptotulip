@@ -1,0 +1,13 @@
+{
+  "name": "cryptotulipapi",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1",
+    "svg.path.js": "git+https://github.com/otm/svg.path.js.git",
+    "svgdom": "^0.1.8",
+    "svgjs": "^2.6.2",
+    "web3": "^1.6.0"
+  }
+}
