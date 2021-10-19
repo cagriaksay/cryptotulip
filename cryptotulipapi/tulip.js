@@ -117,6 +117,7 @@ function drawShape(draw, type, genes, curStart = SHAPES) {
 
 var renderSVG = function(genome, width) {
   const genes = stringToGenes(genome);
+  document.documentElement.innerHTML = '';
   const draw = SVG(document.documentElement).size(width, width).viewbox(-256, -256, 512, 512);
   drawLine(draw, genes);
   const cur = drawShape(draw, 'back', genes);
